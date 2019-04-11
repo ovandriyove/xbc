@@ -6,9 +6,9 @@
 <hibernate-configuration>
 	<session-factory>
 	      <!-- mapping apabila menggunakan annotation -->
-	      <!-- contoh :
-	           <mapping class="xbc.model.Barang"/>
-	       -->
+	      <!-- contoh :-->
+	           <mapping class="xbc.model.Menu"/>
+	       
 	      
 	</session-factory>
 </hibernate-configuration>
