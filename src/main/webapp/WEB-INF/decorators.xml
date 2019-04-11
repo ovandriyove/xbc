@@ -6,9 +6,9 @@
 		<pattern>/assets/*</pattern>
 	</excludes>
 
-	<decorator name="main" page="main.jsp">
+	<!-- <decorator name="main" page="main.jsp">
 		<pattern>/*</pattern>
-	</decorator>
+	</decorator>> -->
 
 	<decorator name="login" page="login.jsp">
 		<pattern>/login</pattern>

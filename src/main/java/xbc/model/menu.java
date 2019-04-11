@@ -10,16 +10,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
+
 @Entity
 @Table(name="t_menu")
 public class Menu implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id", length=11, nullable=false)
+	@Column(name="id", length=11, nullable=false, columnDefinition = "serial")
 	private long id;
 	
-	@GeneratedValue(strategy=GenerationType.AUTO)
+//	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="code", length=50, nullable=false)
 	private String code;
 	
@@ -59,7 +61,8 @@ public class Menu implements Serializable {
 	@Column(name="delete_on")
 	private Date deleteOn;
 	
-	@Column(name="is_delete", nullable=false, columnDefinition="default boolean false")
+	@Column(name="is_delete", nullable=false)
+	@ColumnDefault("'false'")
 	private boolean isDelete;
 
 	public long getId() {

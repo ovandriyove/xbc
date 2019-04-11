@@ -3,9 +3,10 @@ package xbc.dao;
 import java.util.Collection;
 
 import org.hibernate.Query;
+import org.springframework.stereotype.Repository;
 
 import xbc.model.Menu;
-
+@Repository
 public class MenuDaoImpl extends AbstractHibernateDao<Menu> implements MenuDao {
 	
 	public MenuDaoImpl () {
