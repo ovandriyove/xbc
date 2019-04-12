@@ -2,6 +2,7 @@ package xbc.web;
 
 import java.util.Collection;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,7 @@ public class MenuController {
 	public ResponseEntity<Collection<Menu>> findAll() {
 		Collection<Menu> list = menuService.findAll();
 		ResponseEntity<Collection<Menu>> result = new ResponseEntity<>(list, HttpStatus.OK);
+//		session.setSession("id")=1;
 		return result;
 	}
 	
@@ -37,10 +39,18 @@ public class MenuController {
 	}
 	
 	
-	@RequestMapping(value="/search", method=RequestMethod.POST)
+	@RequestMapping(value="/search", method=RequestMethod.GET)
 	public ResponseEntity<Collection<Menu>> searchByTitle(@RequestParam(value = "title") String title) {
 		Collection<Menu> list = menuService.searchByTitle(title);
 		ResponseEntity<Collection<Menu>> result = new ResponseEntity<>(list, HttpStatus.OK);
+		return result;
+	}
+	
+	@RequestMapping(value="/", method=RequestMethod.POST)
+	public ResponseEntity<Menu> save(@RequestBody Menu menu) {
+//		menu.setCreateBy(session.getSession('id"));
+		menuService.save(menu);
+		ResponseEntity<Menu> result = new ResponseEntity<> (HttpStatus.OK);
 		return result;
 	}
 	

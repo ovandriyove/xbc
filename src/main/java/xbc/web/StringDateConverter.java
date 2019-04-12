@@ -9,7 +9,7 @@ public class StringDateConverter implements Converter<String, Date> {
 
 	@Override
 	public Date convert(String source) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		try {
 			return sdf.parse(source);
 		} catch (Exception e) {

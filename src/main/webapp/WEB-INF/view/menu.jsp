@@ -1,67 +1,17 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Menu</title>
-<!-- Tell the browser to be responsive to screen width -->
-<meta
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-	name="viewport">
-	<!--CSS File-->
-	<!-- Font Awesome -->
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/font-awesome440.min.css">
-	<!-- Bootstrap 3.3.7 -->
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css">
-	<!-- Font Awesome -->
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/font-awesome.min.css">
-	<!-- Ionicons -->
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/ionicons.min.css">
-	<!-- DataTables -->
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/dataTables.bootstrap.min.css">
-	<!-- bootstrap datepicker -->
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap-datepicker.min.css">
-	<!-- Theme style -->
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/AdminLTE.min.css">
-	<!-- AdminLTE Skins -->
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/skin-black.min.css">
-	<!-- Google font -->
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/fonts.googleapis.css">
 
-	<!-- JS File -->
-	<!-- jQuery 3 -->
-	<script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
-	<!-- Bootstrap 3.3.7 -->
-	<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
-	<!-- DataTables -->
-	<script src="${pageContext.request.contextPath}/assets/js/jquery.dataTables.min.js"></script>
-	<script src="${pageContext.request.contextPath}/assets/js/dataTables.bootstrap.min.js"></script>
-	<!-- bootstrap datepicker -->
-	<script src="${pageContext.request.contextPath}/assets/js/bootstrap-datepicker.min.js"></script>
-	<!-- AdminLTE App -->
-	<script src="${pageContext.request.contextPath}/assets/js/adminlte.min.js"></script>
-	
-	<!-- Plugin File -->
-	<!-- Bootstrap WYSIHTML5 -->
-	<script src="${pageContext.request.contextPath}/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
-	<!-- iCheck -->
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/iCheck/flat/blue.css">
-	<!-- jvectormap -->
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
-	<!-- bootstrap wysihtml5 - text editor -->
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-	
-	<!-- dist file -->
-	<!-- skin -->
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/dist/css/skins/_all-skins.min.css">
-	
+<title>Menu</title>
 </head>
 <body>
+<!-- Tampilan & input -->
+<section class="content">
 	<!--  Form menu -->
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="box">
-				<div class="box-header">
+				<div class="box-body">
 					<h3 class="box-title">Menu</h3>
 					<br> <br>
 					<div class="row">
@@ -92,7 +42,7 @@
 					</div>
 				</div>
 				<div class="box-body">
-					<table id="tabelBarang" class="table table-bordered table-striped">
+					<table id="tabelMenu" class="table table-bordered table-striped">
 						<thead>
 							<tr>
 								<th>Code</th>
@@ -101,6 +51,7 @@
 								<th>Action</th>
 							</tr>
 						</thead>
+						<tbody></tbody>
 					</table>
 				</div>
 			</div>
@@ -108,6 +59,7 @@
 	</div>
 
 	<!-- Search Menu -->
+	<form id="form-menu">
 	<div class="modal fade" id="modal-default">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -122,7 +74,7 @@
 					<div class="row">
 						<div class="col-xs-6">
 							<div class="form-group">
-								<input type="text" class="form-control" name="name" id="name"
+								<input type="text" class="form-control" name="title" id="title"
 									placeholder="Title">
 							</div>
 						</div>
@@ -146,7 +98,9 @@
 									id="menuOrder" placeholder="Menu Order">
 							</div>
 							<div class="form-group">
-								<select class="form-control" name="menuParent" id="menuParent"></select>
+								<input type="text" class="form-control" name="menuParent"
+									id="menuParent" placeholder="Menu Parent"> 
+								<!-- <select class="form-control" name="menuParent" id="menuParent"></select> -->
 							</div>
 							<div class="form-group">
 								<input type="text" class="form-control" name="menuUrl"
@@ -158,10 +112,121 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default pull-left"
 						data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary">Save</button>
+					<button type="button" onclick="simpan()" class="btn btn-primary">Save</button>
 				</div>
 			</div>
 		</div>
 	</div>
+	</form>
+</section>	
+<!-- Proses -->	
+<script>
+	var modeSubmit = 'insert';
+	var tabelMenu;
+
+	function getFormData($form) {
+		var unindexed_array = $form.serializeArray();
+		var indexed_array = {};
+		$.map(unindexed_array, function(n, i) {
+			indexed_array[n['name']] = n['value'];
+			});
+		return indexed_array;
+	}
+
+	function loadData () {
+		var search = $('#search').val();
+		var url = '';
+		if (search == '') {
+			url = 'menu/'
+		} else {
+			url = 'menu/search/?title=' + search	
+		}
+		$.ajax({
+			type: 'get',
+			url: url,
+			success: function(d) {
+				tampilkanData(d);
+			},
+			error: function(d) {
+				console.log('Error');
+			}
+		});
+	}
+
+	function tampilkanData(d) {
+		tabelMenu.clear().draw();
+		$(d).each(function(index, element) {
+			tabelMenu.row.add([
+				element.code,
+				element.title,
+				element.menuParent
+					// '<input class="btn btn-default btn-sm" type="button" value="Edit" onclick="load(\'' + element.id + '\')"> &nbsp;' +
+ 					// '<input class="btn btn-danger btn-sm" type="button" value="Hapus" onclick="hapus(\'' + element.id + '\')">' -->
+			]).draw();
+		})
+	}
+
+	function simpan() {
+		var method;
+		var data = getFormData($('#form-menu'));
+		if(modeSubmit == 'insert') {
+			method = 'post';
+		} else {
+			method ='put';
+		}
+		$.ajax({
+			type: method,
+			url: 'menu/',
+			data: JSON.stringify(data),
+			contentType: 'application/json',
+			success:  function(d) {
+				loadData();
+				modeSubmit = 'insert';
+				$('#title, #imageUrl, #description, #menuParent, #menuOrder, #menuUrl')
+			},
+			error: function(d) {
+				console.log('Error')
+			}
+		});
+	}
+
+	function hapus(id) {
+		$.ajax({
+			type: 'delete',
+			url: 'menu/' + id,
+			success: function(d) {
+				loadData();
+			},
+			error: function(d) {
+				console.log('Error')
+			}
+		});
+	}
+
+    function load(id) {
+		$.ajax({
+			type: 'get',
+			url: 'menu/' + menu,
+			success: function(d) {
+				$('#Code').val(d.code);
+				$('#title').val(d.title);
+				$('#menuParent').val(d.harga);
+				modeSubmit = 'update';
+			},
+            error: function(d) {
+				console.log('Error');
+            }
+		});
+    }
+
+    $(document).ready(function() {
+		loadData();
+		tabelMenu = $('#tabelMenu').DataTable({
+			'searching' : false,
+			'lengthChange' : false,
+			'lengthMenu' : [10]
+		});
+    });
+</script>
 </body>
 </html>
