@@ -23,7 +23,7 @@ public class Menu implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id", length=11, nullable=false, columnDefinition = "serial")
-	private long id;
+	private Integer id;
 	
 //	@GeneratedValue(strategy=GenerationType.AUTO)
 //	@Column(name="code", length=50, nullable=false)
@@ -40,17 +40,17 @@ public class Menu implements Serializable {
 	private String imageUrl;
 	
 	@Column(name="menu_order", nullable=false)
-	private long menuOrder;
+	private Integer menuOrder;
 	
 	@Column(name="menu_parent", length=11)
-	private long menuParent;
+	private Integer menuParent;
 	
 	@Column(name="menu_url", length=100, nullable=false)
 	private String menuUrl;
 	
 //	@Column(name="create_by", length=11, nullable=false)
 	@Column(name="create_by", length=11)
-	private long createBy;
+	private Integer createBy;
 	
 //	@Column(name="created_on", nullable=false)
 	@Column(name="created_on")
@@ -60,7 +60,7 @@ public class Menu implements Serializable {
 	private Date createdOn;
 	
 	@Column(name="modified_by", length=11)
-	private long modifiedBy;
+	private Integer modifiedBy;
 	
 	@Column(name="modified_on")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -68,7 +68,7 @@ public class Menu implements Serializable {
 	private Date modifiedOn;
 	
 	@Column(name="delete_by", length=11)
-	private long deleteBy;
+	private Integer deleteBy;
 	
 	@Column(name="delete_on")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -79,7 +79,7 @@ public class Menu implements Serializable {
 	@ColumnDefault(value="FALSE")
 	private boolean isDelete;
 
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
 
@@ -99,11 +99,11 @@ public class Menu implements Serializable {
 		return imageUrl;
 	}
 
-	public long getMenuOrder() {
+	public Integer getMenuOrder() {
 		return menuOrder;
 	}
 
-	public long getMenuParent() {
+	public Integer getMenuParent() {
 		return menuParent;
 	}
 
@@ -111,7 +111,7 @@ public class Menu implements Serializable {
 		return menuUrl;
 	}
 
-	public long getCreateBy() {
+	public Integer getCreateBy() {
 		return createBy;
 	}
 
@@ -119,7 +119,7 @@ public class Menu implements Serializable {
 		return createdOn;
 	}
 
-	public long getModifiedBy() {
+	public Integer getModifiedBy() {
 		return modifiedBy;
 	}
 
@@ -127,7 +127,7 @@ public class Menu implements Serializable {
 		return modifiedOn;
 	}
 
-	public long getDeleteBy() {
+	public Integer getDeleteBy() {
 		return deleteBy;
 	}
 
@@ -139,7 +139,7 @@ public class Menu implements Serializable {
 		return isDelete;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -159,11 +159,11 @@ public class Menu implements Serializable {
 		this.imageUrl = imageUrl;
 	}
 
-	public void setMenuOrder(long menuOrder) {
+	public void setMenuOrder(Integer menuOrder) {
 		this.menuOrder = menuOrder;
 	}
 
-	public void setMenuParent(long menuParent) {
+	public void setMenuParent(Integer menuParent) {
 		this.menuParent = menuParent;
 	}
 
@@ -171,7 +171,7 @@ public class Menu implements Serializable {
 		this.menuUrl = menuUrl;
 	}
 
-	public void setCreateBy(long createBy) {
+	public void setCreateBy(Integer createBy) {
 		this.createBy = createBy;
 	}
 
@@ -179,7 +179,7 @@ public class Menu implements Serializable {
 		this.createdOn = createdOn;
 	}
 
-	public void setModifiedBy(long modifiedBy) {
+	public void setModifiedBy(Integer modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
 
@@ -187,7 +187,7 @@ public class Menu implements Serializable {
 		this.modifiedOn = modifiedOn;
 	}
 
-	public void setDeleteBy(long deleteBy) {
+	public void setDeleteBy(Integer deleteBy) {
 		this.deleteBy = deleteBy;
 	}
 

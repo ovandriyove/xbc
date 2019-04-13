@@ -17,7 +17,7 @@ public class MenuServiceImpl  implements MenuService {
 	private MenuDao menuDao;
 	
 	@Override
-	public Menu findOne(long id) {
+	public Menu findOne(Integer id) {
 		return menuDao.findOne(id);
 	}
 	
@@ -37,7 +37,7 @@ public class MenuServiceImpl  implements MenuService {
 	}
 	
 	@Override
-	public void deleteById(long id) {
+	public void deleteById(Integer id) {
 		menuDao.deleteById(id);
 	}
 	

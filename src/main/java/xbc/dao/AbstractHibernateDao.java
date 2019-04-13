@@ -21,11 +21,9 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
 	
 	protected final Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
-	}
+	}	
 	
-	
-	
-	public T findOne(final long id) {
+	public T findOne(final Integer id) {
 		return (T) getCurrentSession().get(clazz, id);
 	}
 	
@@ -37,7 +35,7 @@ public abstract class AbstractHibernateDao<T extends Serializable> {
 		return getCurrentSession().createQuery("FROM " + clazz.getName()).list();
 	}
 	
-	public void deleteById(final long id) {
+	public void deleteById(final Integer id) {
 		final T entity = findOne(id);
 		delete(entity);
 	}

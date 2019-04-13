@@ -2,6 +2,8 @@ package xbc.web;
 
 import java.util.Collection;
 
+import javax.servlet.http.HttpSession;
+
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +34,7 @@ public class MenuController {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<Menu> findOne(@PathVariable("id") long id) {
+	public ResponseEntity<Menu> findOne(@PathVariable("id") Integer id) {
 		Menu menu = menuService.findOne(id);
 		ResponseEntity<Menu> result = new ResponseEntity<>(menu, HttpStatus.OK);
 		return result;
@@ -55,7 +57,7 @@ public class MenuController {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-	public ResponseEntity<Menu> deleteById(@PathVariable("id") long id) {
+	public ResponseEntity<Menu> deleteById(@PathVariable("id") Integer id) {
 		menuService.deleteById(id);
 		ResponseEntity<Menu> result = new ResponseEntity<>(HttpStatus.OK);
 		return result;
