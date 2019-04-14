@@ -1,8 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-
-<title>Menu</title>
+	<title>Menu</title>
 </head>
 <body>
 	<!-- Tampilan & input -->
