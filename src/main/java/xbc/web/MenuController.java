@@ -25,13 +25,13 @@ public class MenuController {
 	@Autowired
 	private MenuService menuService;
 	
-	@RequestMapping(value="/", method=RequestMethod.GET)
-	public ResponseEntity<Collection<Menu>> findAll() {
-		Collection<Menu> list = menuService.findAll();
-		ResponseEntity<Collection<Menu>> result = new ResponseEntity<>(list, HttpStatus.OK);
-//		session.setSession("id")=1;
-		return result;
-	}
+//	@RequestMapping(value="/", method=RequestMethod.GET)
+//	public ResponseEntity<Collection<Menu>> findAll() {
+//		Collection<Menu> list = menuService.findAll();
+//		ResponseEntity<Collection<Menu>> result = new ResponseEntity<>(list, HttpStatus.OK);
+////		session.setSession("id")=1;
+//		return result;
+//	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<Menu> findOne(@PathVariable("id") Integer id) {
@@ -41,9 +41,9 @@ public class MenuController {
 	}
 	
 	
-	@RequestMapping(value="/search", method=RequestMethod.GET)
-	public ResponseEntity<Collection<Menu>> searchByTitle(@RequestParam(value = "title") String title) {
-		Collection<Menu> list = menuService.searchByTitle(title);
+	@RequestMapping(value="/", method=RequestMethod.GET)
+	public ResponseEntity<Collection<Menu>> search(@RequestParam(value = "title") String title) {
+		Collection<Menu> list = menuService.search(title);
 		ResponseEntity<Collection<Menu>> result = new ResponseEntity<>(list, HttpStatus.OK);
 		return result;
 	}
@@ -57,14 +57,15 @@ public class MenuController {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-	public ResponseEntity<Menu> deleteById(@PathVariable("id") Integer id) {
-		menuService.deleteById(id);
+	public ResponseEntity<Menu> softDeleteById(@PathVariable("id") Integer id) {
+		menuService.softDeleteById(id);
 		ResponseEntity<Menu> result = new ResponseEntity<>(HttpStatus.OK);
 		return result;
 	}
 	
 	@RequestMapping(value="/", method=RequestMethod.PUT)
 	public ResponseEntity<Menu> update(@RequestBody Menu menu) {
+		menuService.update(menu);
 		ResponseEntity<Menu> result = new ResponseEntity<>(HttpStatus.OK);
 		return result;
 	}

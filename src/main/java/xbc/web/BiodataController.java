@@ -44,12 +44,12 @@ public class BiodataController {
 		return result;
 	}
 	
-	@RequestMapping(value="/search", method=RequestMethod.GET)
-	public ResponseEntity<Collection<Biodata>> searchByMajors(@RequestParam(value="majors") String majors) {
-		Collection<Biodata> list = biodataService.searchByMajors(majors);
-		ResponseEntity<Collection<Biodata>> result = new ResponseEntity<>(list, HttpStatus.OK);
-		return result;
-	}
+//	@RequestMapping(value="/search", method=RequestMethod.GET)
+//	public ResponseEntity<Collection<Biodata>> searchByMajors(@RequestParam(value="majors") String majors) {
+//		Collection<Biodata> list = biodataService.searchByMajors(majors);
+//		ResponseEntity<Collection<Biodata>> result = new ResponseEntity<>(list, HttpStatus.OK);
+//		return result;
+//	}
 	
 	@RequestMapping(value="/", method=RequestMethod.POST)
 	public ResponseEntity<Biodata> save(@RequestBody Biodata biodata) {

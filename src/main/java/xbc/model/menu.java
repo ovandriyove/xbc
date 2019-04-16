@@ -25,9 +25,8 @@ public class Menu implements Serializable {
 	@Column(name="id", length=11, nullable=false, columnDefinition = "serial")
 	private Integer id;
 	
-//	@GeneratedValue(strategy=GenerationType.AUTO)
-//	@Column(name="code", length=50, nullable=false)
-	@Column(name="code", length=50)
+	@Column(name="code", length=50, nullable=false)
+//	@Column(name="code", length=50)
 	private String code;
 	
 	@Column(name="title", length= 50, nullable=false)
@@ -48,15 +47,14 @@ public class Menu implements Serializable {
 	@Column(name="menu_url", length=100, nullable=false)
 	private String menuUrl;
 	
-//	@Column(name="create_by", length=11, nullable=false)
-	@Column(name="create_by", length=11)
+	@Column(name="create_by", length=11, nullable=false)
+//	@Column(name="create_by", length=11)
 	private Integer createBy;
 	
-//	@Column(name="created_on", nullable=false)
-	@Column(name="created_on")
+	@Column(name="created_on", nullable=false)
+//	@Column(name="created_on")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/Jakarta")
-	@ColumnDefault(value="CURRENT_TIMESTAMP")
 	private Date createdOn;
 	
 	@Column(name="modified_by", length=11)
@@ -76,7 +74,7 @@ public class Menu implements Serializable {
 	private Date deleteOn;
 	
 	@Column(name="is_delete", nullable=false)
-	@ColumnDefault(value="FALSE")
+//	@ColumnDefault(value="FALSE")
 	private boolean isDelete;
 
 	public Integer getId() {
@@ -198,5 +196,5 @@ public class Menu implements Serializable {
 	public void setDelete(boolean isDelete) {
 		this.isDelete = isDelete;
 	}
-
+	
 }

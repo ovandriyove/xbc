@@ -11,5 +11,5 @@ public interface MenuDao {
 	public void delete(Menu menu);
 	public void deleteById(Integer id);
 	public void save(Menu menu);
-	public Collection<Menu> searchByTitle(String title);
+	public Collection<Menu> search(String title);
 }

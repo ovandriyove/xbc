@@ -43,6 +43,7 @@
 	<script src="${pageContext.request.contextPath}/assets/js/bootstrap-datepicker.min.js"></script>
 	<!-- AdminLTE App -->
 	<script src="${pageContext.request.contextPath}/assets/js/adminlte.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/jquery.serializejson.js"></script>
 	
 	<!-- Plugin File -->
 	<!-- Bootstrap WYSIHTML5 -->
@@ -68,9 +69,9 @@
             <!-- Logo -->
             <a href="index2.html" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>List</b></span>
+                <span class="logo-mini"><b>XBC</b></span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>Mini</b> Project</span>
+                <span class="logo-lg"><b>X</b>sis <b>B</b>ootcamp <b>C</b>ore</span>
             </a>
 
             <!-- Header Navbar -->
