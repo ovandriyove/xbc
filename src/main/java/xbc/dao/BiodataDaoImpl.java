@@ -6,7 +6,6 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import xbc.model.Biodata;
-import xbc.model.Biodata;
 
 @Repository
 public class BiodataDaoImpl extends AbstractHibernateDao<Biodata> implements BiodataDao  {
@@ -15,18 +14,13 @@ public class BiodataDaoImpl extends AbstractHibernateDao<Biodata> implements Bio
 		setClazz(Biodata.class);
 	}
 	
-	public Collection<Biodata> searchByName(final String name) {
-		String hql = "FROM Biodata B WHERE LOWER(B.name) LIKE LOWER(:name)";
+	public Collection<Biodata> search(final String nameOrMajors) {
+		String hql = "FROM Menu M "
+				   + "WHERE (LOWER(M.name) LIKE LOWER(:nameOrMajors) "
+				   + "OR LOWER(M.majors) LIKE LOWER(:nameOrMajors) " 
+				   + "AND M.isDelete = 'false'";
 		Query q = getCurrentSession().createQuery(hql);
-		q.setParameter("name", "%" + name + "%");
-		Collection<Biodata> result = q.list();
-		return result;
-	}
-	
-	public Collection<Biodata> searchByMajors(final String majors) {
-		String hql = "FROM Biodata B WHERE LOWER(B.majors) LIKE LOWER(:majors)";
-		Query q = getCurrentSession().createQuery(hql);
-		q.setParameter("majors", "%" + majors + "%");
+		q.setParameter("title", "%" + nameOrMajors + "%");
 		Collection<Biodata> result = q.list();
 		return result;
 	}

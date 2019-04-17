@@ -123,8 +123,8 @@
 			<section class="sidebar">
 				<ul class="sidebar-menu">
 					<li><a href="index.jsp"><i class="fa fa-home"></i><span>Home</span></a></li>
-					<li><a href="menu"><i class="fa fa-tag"></i><span>Menu</span></a></li>
-					<li><a href="biodata"><i class="fa fa-shopping-cart"></i><span>Biodata</span></a></li>
+					<li><a href="menu"><i class="fa fa-list"></i><span>Menu</span></a></li>
+					<li><a href="biodata"><i class="fa fa-user"></i><span>Biodata</span></a></li>
 				</ul>
 			</section>
 			<!-- /.sidebar -->

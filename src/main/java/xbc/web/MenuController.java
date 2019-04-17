@@ -25,26 +25,17 @@ public class MenuController {
 	@Autowired
 	private MenuService menuService;
 	
-//	@RequestMapping(value="/", method=RequestMethod.GET)
-//	public ResponseEntity<Collection<Menu>> findAll() {
-//		Collection<Menu> list = menuService.findAll();
-//		ResponseEntity<Collection<Menu>> result = new ResponseEntity<>(list, HttpStatus.OK);
-////		session.setSession("id")=1;
-//		return result;
-//	}
+	@RequestMapping(value="/", method=RequestMethod.GET)
+	public ResponseEntity<Collection<Menu>> search(@RequestParam(value = "title") String title) {
+		Collection<Menu> list = menuService.search(title);
+		ResponseEntity<Collection<Menu>> result = new ResponseEntity<>(list, HttpStatus.OK);
+		return result;
+	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<Menu> findOne(@PathVariable("id") Integer id) {
 		Menu menu = menuService.findOne(id);
 		ResponseEntity<Menu> result = new ResponseEntity<>(menu, HttpStatus.OK);
-		return result;
-	}
-	
-	
-	@RequestMapping(value="/", method=RequestMethod.GET)
-	public ResponseEntity<Collection<Menu>> search(@RequestParam(value = "title") String title) {
-		Collection<Menu> list = menuService.search(title);
-		ResponseEntity<Collection<Menu>> result = new ResponseEntity<>(list, HttpStatus.OK);
 		return result;
 	}
 	
@@ -56,7 +47,7 @@ public class MenuController {
 		return result;
 	}
 	
-	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Menu> softDeleteById(@PathVariable("id") Integer id) {
 		menuService.softDeleteById(id);
 		ResponseEntity<Menu> result = new ResponseEntity<>(HttpStatus.OK);

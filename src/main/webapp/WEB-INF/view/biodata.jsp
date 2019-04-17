@@ -6,21 +6,21 @@
 <body>
 	<!-- Tampilan & input -->
 	<section class="content">
-		<!--  Form menu -->
-		<div class="row">
+		<!--  Search -->
+				<div class="row">
 			<div class="col-xs-12">
 				<div class="box">
 					<div class="box-body">
-						<h3 class="box-title">Biodata</h3>
+						<h3 class="box-title">Menu</h3>
 						<br> <br>
 						<div class="row">
 							<div class="box-tools">
 								<div class="col-xs-5">
 									<div class="input-group input-group-sm">
 										<input type="text" id="search" class="form-control pull-left"
-											placeholder="Search">
+											placeholder="Search by Name or Majors">
 										<div class="input-group-btn">
-											<button type="button" class="btn btn-default">
+											<button type="button" class="btn btn-default" onclick="refreshTabel()">
 												<i class="fa fa-search"></i>
 											</button>
 										</div>
@@ -30,8 +30,8 @@
 								<div class="col-xs-1">
 									<div class="input-group input-group-sm">
 										<div class="input-group-btn pull-right">
-											<button type="button" class="btn btn-default"
-												data-toggle="modal" data-target="#modal-default1">
+											<button type="button" class="btn btn-primary btn-sm pull-right"
+												data-toggle="modal" data-target="#modalBiodata">
 												<i class="fa fa-plus"></i>
 											</button>
 										</div>
@@ -41,7 +41,7 @@
 						</div>
 					</div>
 					<div class="box-body">
-						<table id="tabelMenu" class="table table-bordered table-striped">
+						<table id="tabel-biodata" class="table table-bordered table-striped">
 							<thead>
 								<tr>
 									<th>Name</th>
@@ -57,9 +57,9 @@
 			</div>
 		</div>
 
-		<!-- Search Menu -->
-		<form id="form-menu">
-			<div class="modal fade" id="modal-default1">
+		<!-- Form Biodata -->
+		<form id="form-biodata">
+			<div class="modal fade" id="modalBiodata">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -71,39 +71,51 @@
 						</div>
 						<div class="modal-body">
 							<div class="row">
-								<div class="form-group">
-									<input type="text" class="form-control" name="name" id="name"
-										placeholder="Name">
+								<div class="col-xs-12">
+									<div class="form-group">
+										<input type="text" class="form-control" name="name" id="name"
+											placeholder="Name">
+									</div>
 								</div>
 							</div>
 							<div class="row">
-								<div class="form-group">
-									<input type="text" class="form-control" name="lastEducation"
-										id="lastEducation" placeholder="Last Education">
+								<div class="col-xs-12">
+									<div class="form-group">
+										<input type="text" class="form-control" name="lastEducation"
+											id="lastEducation" placeholder="Last Education">
+									</div>
 								</div>
 							</div>
 							<div class="row">
-								<div class="form-group">
-									<input type="text" class="form-control" name="educationLevel"
-										id="educationLevel" placeholder="Education Level">
+								<div class="col-xs-12">
+									<div class="form-group">
+										<input type="text" class="form-control" name="educationalLevel"
+											id="educationalLevel" placeholder="Educational Level">
+									</div>
 								</div>
 							</div>
 							<div class="row">
-								<div class="form-group">
-									<input class="form-control" name="graduationYear"
-										id="graduationYear" placeholder="Graduation Year">
+								<div class="col-xs-12">
+									<div class="form-group">
+										<input class="form-control" name="graduationYear"
+											id="graduationYear" placeholder="Graduation Year">
+									</div>
 								</div>
 							</div>
 							<div class="row">
-								<div class="form-group">
-									<input type="text" class="form-control" name="majors"
-										id="majors" placeholder="Majors">
+								<div class="col-xs-12">
+									<div class="form-group">
+										<input type="text" class="form-control" name="majors"
+											id="majors" placeholder="Majors">
+									</div>
 								</div>
 							</div>
 							<div class="row">
-								<div class="form-group">
-									<input type="text" class="form-control" name="gpa" id="gpa"
-										placeholder="GPA">
+								<div class="col-xs-12">
+									<div class="form-group">
+										<input type="text" class="form-control" name="gpa" id="gpa"
+											placeholder="GPA">
+									</div>
 								</div>
 							</div>
 						</div>
@@ -117,8 +129,8 @@
 			</div>
 		</form>
 
-		<form id="formedit-menu">
-			<div class="modal fade" id="modal-default2">
+		<form id="form-editBiodata">
+			<div class="modal fade" id="modalEdit">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -129,15 +141,21 @@
 							<h4 class="modal-title">Edit Biodata</h4>
 						</div>
 						<div class="modal-body">
+						<div class="col-xs-12">
+								<div class="form-group">
+									<input type="hidden" class="form-control" name="id:number"
+										id="idEdit">
+								</div>
+							</div>
 							<div class="row">
 								<div class="form-group">
-									<div class="col-xs-4">
-										<input type="text" class="form-control" name="name" id="name"
+									<div class="col-xs-6">
+										<input type="text" class="form-control" name="name" id="nameEdit"
 											placeholder="Name">
 									</div>
 								</div>
 								<div class="form-group">
-									<div class="col-xs-4">
+									<div class="col-xs-6">
 										<input type="text" class="form-control" name="gender" id="gender"
 											placeholder="Gender">
 									</div>
@@ -145,13 +163,13 @@
 							</div>
 							<div class="row">
 								<div class="form-group">
-									<div class="col-xs-4">
-										<input type="text" class="form-control" name="educationLevel" id="educationLevel"
+									<div class="col-xs-6">
+										<input type="text" class="form-control" name="educationLevel" id="educationLevelEdit"
 											placeholder="Education Level">
 									</div>
 								</div>
 								<div class="form-group">
-									<div class="col-xs-4">
+									<div class="col-xs-6">
 										<input type="text" class="form-control" name="bootcampTestType" id="bootcampTestType"
 											placeholder="Bootcamp Test Type">
 									</div>
@@ -159,11 +177,12 @@
 							</div>
 							<div class="row">
 								<div class="form-group">
-									<div class="col-xs-4">
-										<input type="text" class="form-control" name="lastEducation" id="lastEducation"
+									<div class="col-xs-6">
+										<input type="text" class="form-control" name="lastEducation" id="lastEducationEdit"
 											placeholder="Last Education">
 									</div>
 								</div>
+								<div class="col-xs-1"></div>
 								<div class="form-group">
 									<div class="col-xs-1">
 										<input type="text" class="form-control" name="iq" id="iq"
@@ -188,16 +207,17 @@
 											placeholder="JT">
 									</div>
 								</div>
+								<div class="col-xs-1"></div>
 							</div>
 							<div class="row">
 								<div class="form-group">
-									<div class="col-xs-4">
-										<input type="text" class="form-control" name="graduationYear" id="graduationYear"
+									<div class="col-xs-6">
+										<input type="text" class="form-control" name="graduationYear" id="graduationYearEdit"
 											placeholder="Graduation Year">
 									</div>
 								</div>
 								<div class="form-group">
-									<div class="col-xs-4">
+									<div class="col-xs-6">
 										<input type="text" class="form-control" name="arithmetic" id="arithmetic"
 											placeholder="Arithmetic">
 									</div>
@@ -205,13 +225,13 @@
 							</div>
 							<div class="row">
 								<div class="form-group">
-									<div class="col-xs-4">
-										<input type="text" class="form-control" name="majors" id="majors"
+									<div class="col-xs-6">
+										<input type="text" class="form-control" name="majors" id="majorsEdit"
 											placeholder="Majors">
 									</div>
 								</div>
 								<div class="form-group">
-									<div class="col-xs-4">
+									<div class="col-xs-6">
 										<input type="text" class="form-control" name="tro" id="tro"
 											placeholder="TRO">
 									</div>
@@ -219,13 +239,13 @@
 							</div>
 							<div class="row">
 								<div class="form-group">
-									<div class="col-xs-4">
-										<input type="text" class="form-control" name="gpa" id="gpa"
+									<div class="col-xs-6">
+										<input type="text" class="form-control" name="gpa" id="gpaEdit"
 											placeholder="GPA">
 									</div>
 								</div>
 								<div class="form-group">
-									<div class="col-xs-4">
+									<div class="col-xs-6">
 										<input type="text" class="form-control" name="interviewer" id="interviewer"
 											placeholder="Interviewer">
 									</div>
@@ -233,8 +253,8 @@
 							</div>
 							<div class="row">
 								<div class="form-group">
-									<div class="col-xs-8">
-										<textarea type="text" class="form-control" rows="3" name="notes" id="notes"
+									<div class="col-xs-12">
+										<textarea class="form-control" rows="3" name="notes" id="notes"
 											placeholder="Notes"></textarea>
 									</div>
 								</div>
@@ -275,119 +295,111 @@
 	</section>
 	<!-- Proses -->
 	<script>
-		var modeSubmit = 'insert';
-		var tabelMenu;
-
-		function getFormData($form) {
-			var unindexed_array = $form.serializeArray();
-			var indexed_array = {};
-			$.map(unindexed_array, function(n, i) {
-				indexed_array[n['name']] = n['value'];
-			});
-			return indexed_array;
-		}
-
-		function loadData() {
-			var search = $('#search').val();
-			var url = '';
-			if (search == '') {
-				url = 'menu/'
-			} else {
-				url = 'menu/search/?name=' + search
+	var modeSubmit = 'insert';
+	
+	function refreshTabel() {
+		$.ajax({
+			type: 'get',
+			url: 'biodata/',
+			data: {
+				nameOrMajors: $('#search').val()
+			},
+			success: function(d) {
+				tabelBiodata.clear().draw();
+				$(d).each(function(index, element){
+					tabelBiodata.row.add([
+						element.name,
+						element.majors,
+						element.gpa,
+						'<input class="btn btn-default btn-sm" type="button" value="Edit" data-toggle="modal" data-target="#modalEdit" onclick="loadEdit(\'' + element.id + '\')"> &nbsp;' +
+		 				'<input class="btn btn-danger btn-sm" type="button" value="Hapus" data-toggle="modal" dataId ="'+element.id+'" onclick="hapus(\'' + element.id + '\')">'
+					]).draw();
+					
+				})
+				
+			},
+			error: function(d) {
+				console.log('Error');
 			}
-			$.ajax({
-				type : 'get',
-				url : url,
-				success : function(d) {
-					tampilkanData(d);
-				},
-				error : function(d) {
-					console.log('Error');
-				}
-			});
-		}
-
-		function tampilkanData(d) {
-			tabelMenu.clear().draw();
-			$(d).each(function(index, element) {
-				tabelMenu.row.add([
-					element.name,
-					element.majors,
-					element.gpa,
-						'<input class="btn btn-default btn-sm" type="button" value="Edit" data-target="#modal-default2" onclick="load(\''
-						+ element.id
-						+ '\')"> &nbsp;'
-						+ '<input class="btn btn-danger btn-sm" type="button" value="Hapus" onclick="hapus(\''
-						+ element.id
-						+ '\')">' ])
-						.draw();
-			})
-		}
-
-		function simpan() {
-			var method;
-			var data = getFormData($('#form-menu'));
-			if (modeSubmit == 'insert') {
-				method = 'post';
-			} else {
-				method = 'put';
-			}
-			$.ajax({
-				type : method,
-				url : 'menu/',
-				data : JSON.stringify(data),
-				contentType : 'application/json',
-				success : function(d) {
-					loadData();
-					modeSubmit = 'insert';
-					$('#name, #lastEduaction, #graduationYear, #majors, #gpa')
-				},
-				error : function(d) {
-					console.log('Error')
-				}
-			});
-		}
-
-		function hapus(id) {
-			$.ajax({
-				type : 'delete',
-				url : 'menu/' + id,
-				success : function(d) {
-					loadData();
-				},
-				error : function(d) {
-					console.log('Error')
-				}
-			});
-		}
-
-		function load(id) {
-			$.ajax({
-				type : 'get',
-				url : 'menu/' + menu,
-				success : function(d) {
-					$('#name').val(d.name);
-					$('#lastEducation').val(d.lastEduacation);
-					$('#educationLevel').val(d.educationLevel);
-					$('#graduationYear').val(d.graduationYear);
-					$('#majors').val(d.majors);
-					$('#gpa').val(d.gpa);
-					modeSubmit = 'update';
-				},
-				error : function(d) {
-					console.log('Error');
-				}
-			});
-		}
-
-		$(document).ready(function() {
-			loadData();
-			tabelMenu = $('#tabelMenu').DataTable({
-				'searching' : false,
-				'lengthChange' : false,
-				'lengthMenu' : [ 10 ]
-			});
 		});
+	}
+
+	function simpan() {	
+		var method;
+
+		if(modeSubmit == 'insert') {
+			var data = $('#form-biodata').serializeJSON();	
+			$('#modalBiodata').modal('hide');
+			method = 'post';
+		} else {
+			var data  = $('#form-editBiodata').serializeJSON();
+			$('#modalEdit').modal('hide');
+			method ='put';
+		}
+		$.ajax({
+			type: method,
+			url: 'biodata/',
+			data: JSON.stringify(data),
+			contentType: 'application/json',
+			success:  function(d) {
+				refreshTabel();
+				modeSubmit = 'insert';
+				$('#form-biodata').trigger("reset");
+				$('#form-biodata input[type=hidden]').val('');	
+				$('#form-editBiodata').trigger("reset");
+				$('#form-editBiodata input[type=hidden]').val('');	
+			},
+			error: function(d) {
+				console.log('Error')
+			}
+		});
+	}
+
+    function loadEdit(id) {
+		$.ajax({
+			type: 'get',
+			url: 'biodata/' + id,
+			success: function(d) {
+				refreshTabel();
+				$('#idEdit').val(d.id);
+				$('#nameEdit').val(d.name);
+				$('#lastEducationEdit').val(d.lastEducation);
+				$('#graduationYearEdit').val(d.graduationYear);
+				$('#educationalLevelEdit').val(d.educationalLevel);
+				$('#majorsEdit').val(d.majors);
+				$('#gpaEdit').val(d.gpa);
+				modeSubmit ='update';
+			},
+            error: function(d) {
+				console.log('Error');
+            }
+		});
+    }
+
+    function hapus(id) {
+        if (confirm("Are you sure to delete this data?")) {
+          $.ajax({
+            type: 'delete',
+            url: 'biodata/' + id,
+            success: function (d) {
+              refreshTabel();
+            },
+            error: function (d) {
+              console.log('Error');
+            }
+          });
+        }
+      }
+
+    var tabelBiodata;
+    $(document).ready(function () {
+      tabelBiodata = $('#tabel-biodata').DataTable({
+        'searching': false,
+        'lengthChange': false,
+        'lengthMenu': [10]
+      });
+      refreshTabel();
+    });
 	</script>
 </body>
 </html>

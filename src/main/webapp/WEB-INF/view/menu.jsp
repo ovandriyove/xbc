@@ -131,8 +131,11 @@
 							<h4 class="modal-title">Edit Menu</h4>
 						</div>
 						<div class="modal-body">
-							<div class="form-group">
-								<input type="hidden" class="form-control" name="id:number" id="idEdit">
+							<div class="col-xs-12">
+								<div class="form-group">
+									<input type="hidden" class="form-control" name="id:number"
+										id="idEdit">
+								</div>
 							</div>
 							<div class="row">
 								<div class="col-xs-6">
@@ -171,8 +174,9 @@
 								</div>
 								<div class="col-xs-6">
 									<div class="form-group">
-										<input class="form-control" name="menuParent:number"
-											id="menuParentEdit">
+										<select class="form-control" name="menuParent:number" id="menuParentEdit">
+										<option>0</option><option>1</option><option>2</option>
+										</select>
 									</div>
 									<div class="form-group">
 										<input class="form-control" name="menuUrl:string" id="menuUrlEdit">
@@ -199,7 +203,7 @@
 						<h4 class="modal-title">Delete Menu</h4>
 					</div>
 					<div class="modal-body">
-						<form id="form-delete">
+						<!--<form id="form-delete">
 							<div class="row">
 								<div class="col-xs-6">
 									<div class="form-group">
@@ -215,8 +219,8 @@
 											name="delete:boolean" id="deleteHapus">
 									</div>
 								</div>
-							</div>
-						</form>
+							</div> 
+						</form>-->
 						<div class="form-group" align="center">
 							<p>Are you sure to delete this data?</p>
 						</div>
@@ -224,7 +228,7 @@
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default pull-left"
 							data-dismiss="modal">No</button>
-						<button type="button" class="btn btn-danger" onclick="hapus()">Yes</button>
+						<button type="button" class="btn btn-danger" onclick="hapus(dataId)">Yes</button>
 					</div>
 				</div>
 			</div>
@@ -245,13 +249,12 @@
 			success: function(d) {
 				tabelMenu.clear().draw();
 				$(d).each(function(index, element){
-					
 					tabelMenu.row.add([
 						element.code,
 						element.title,
 						element.menuParent,
 						'<input class="btn btn-default btn-sm" type="button" value="Edit" data-toggle="modal" data-target="#modalEdit" onclick="loadEdit(\'' + element.id + '\')"> &nbsp;' +
-		 				'<input class="btn btn-danger btn-sm" type="button" value="Hapus" data-toggle="modal" dataId ="'+element.id+'"  data-target="#modalDelete" onclick="loadHapus(\'' + element.id + '\')">'
+		 				'<input class="btn btn-danger btn-sm" type="button" value="Hapus" data-toggle="modal" dataId ="'+element.id+'" onclick="hapus(\'' + element.id + '\')">'
 					]).draw();
 					
 				})
@@ -317,37 +320,52 @@
 		});
     }
 
-	function loadHapus(id) {
-		$.ajax({
-			type : 'get',
-			url : 'menu/' + id,
-			success : function(d) {	
-				refreshTabel();
-				$('#idHapus').val(d.id);
-				$('#deleteHapus').val(true);
-			},
-			error : function(d) {
-				console.log('Error');
-			}
-		});
-	}
+//	function loadHapus(id) {
+//		$.ajax({
+//			type : 'get',
+//			url : 'menu/' + id,
+//			success : function(d) {	
+//				refreshTabel();
+//				$('#idHapus').val(d.id);
+//				$('#deleteHapus').val(true);
+//			},
+//			error : function(d) {
+//				console.log('Error');
+//			}
+//		});
+//	}
 
-	function hapus(id) {
-		$('#modalDelete').modal('hide');
-		var data  = $('#form-delete').serializeJSON();
-		$.ajax({
-			type: 'delete',
-			url: 'menu/' + id,
-			data: JSON.stringify(data),
-			contentType: 'application/json',
-			success: function(d) {
-				refreshTabel();	
-			},
-			error: function(d) {
-				console.log('Error')
-			}
-		});
-	}
+//	function hapus2nd(id) {
+//		$('#modalDelete').modal('hide');
+//		var data  = $('#form-delete').serializeJSON();
+//		$.ajax({
+//			type: 'delete',
+//			url: 'menu/' + id,
+//			data: JSON.stringify(data),
+//			contentType: 'application/json',
+//			success: function(d) {
+//				refreshTabel();
+//			},
+//			error: function(d) {
+//				console.log('Error')
+//			}
+//		});
+//	}
+
+    function hapus(id) {
+        if (confirm("Are you sure to delete this data?")) {
+          $.ajax({
+            type: 'delete',
+            url: 'menu/' + id,
+            success: function (d) {
+              refreshTabel();
+            },
+            error: function (d) {
+              console.log('Error');
+            }
+          });
+        }
+      }
 
     var tabelMenu;
     $(document).ready(function () {

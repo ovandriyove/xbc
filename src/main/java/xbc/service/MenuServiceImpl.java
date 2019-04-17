@@ -43,11 +43,6 @@ public class MenuServiceImpl  implements MenuService {
 		return menuDao.update(menu);
 	}
 	
-//	@Override
-//	public Menu update(Menu newMenu, String id) {
-//		return null;
-//	}
-	
 	@Override
 	public void delete(Menu menu) {
 		menuDao.delete(menu);

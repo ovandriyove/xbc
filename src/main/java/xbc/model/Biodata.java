@@ -4,16 +4,18 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+@Entity
+@Table(name="t_biodata")
 public class Biodata implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -32,8 +34,8 @@ public class Biodata implements Serializable {
 	@Column(name="gradution_yeaar", length=5, nullable=false)
 	private String graduationYear;
 	
-	@Column(name="education_level", length=5, nullable=false)
-	private String educationLevel;
+	@Column(name="educational_level", length=5, nullable=false)
+	private String educationalLevel;
 	
 	@Column(name="majors", length=100, nullable=false)
 	private String majors;
@@ -68,15 +70,12 @@ public class Biodata implements Serializable {
 	@Column(name="interviewer", length=100)
 	private String interviewer;
 	
-//	@Column(name="create_by", length=11, nullable=false)
-	@Column(name="create_by", length=11)
+	@Column(name="create_by", length=11, nullable=false)
 	private Integer createBy;
 	
-//	@Column(name="created_on", nullable=false)
-	@Column(name="created_on")
+	@Column(name="created_on", nullable=false)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/Jakarta")
-	@ColumnDefault(value="CURRENT_TIMESTAMP")
 	private Date createdOn;
 	
 	@Column(name="modified_by", length=11)
@@ -96,7 +95,6 @@ public class Biodata implements Serializable {
 	private Date deleteOn;
 	
 	@Column(name="is_delete", nullable=false)
-	@ColumnDefault(value="FALSE")
 	private boolean isDelete;
 
 	public Integer getId() {
@@ -119,8 +117,8 @@ public class Biodata implements Serializable {
 		return graduationYear;
 	}
 
-	public String getEducationLevel() {
-		return educationLevel;
+	public String getEducationalLevel() {
+		return educationalLevel;
 	}
 
 	public String getMajors() {
@@ -215,8 +213,8 @@ public class Biodata implements Serializable {
 		this.graduationYear = graduationYear;
 	}
 
-	public void setEducationLevel(String educationLevel) {
-		this.educationLevel = educationLevel;
+	public void setEducationalLevel(String educationalLevel) {
+		this.educationalLevel = educationalLevel;
 	}
 
 	public void setMajors(String majors) {

@@ -11,6 +11,5 @@ public interface BiodataDao {
 	public void delete(Biodata biodata);
 	public void deleteById(Integer id);
 	public void save(Biodata biodata);
-	public Collection<Biodata> searchByName(String name);
-	public Collection<Biodata> searchByMajors(String majors);
+	public Collection<Biodata> search(String nameOrMajors);
 }

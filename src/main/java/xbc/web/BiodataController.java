@@ -23,10 +23,10 @@ public class BiodataController {
 	@Autowired
 	private BiodataService biodataService;
 	
-	@RequestMapping(value="/", method=RequestMethod.GET)
-	public ResponseEntity<Collection<Biodata>> findAll() {
-		Collection<Biodata> list = biodataService.findAll();
-		ResponseEntity<Collection<Biodata>> result = new ResponseEntity<> (list, HttpStatus.OK);
+	@RequestMapping(value="/search", method=RequestMethod.GET)
+	public ResponseEntity<Collection<Biodata>> search(@RequestParam(value = "nameOrMajors") String nameOrMajors) {
+		Collection<Biodata> list = biodataService.search(nameOrMajors);
+		ResponseEntity<Collection<Biodata>> result = new ResponseEntity<>(list, HttpStatus.OK);
 		return result;
 	}
 	
@@ -37,20 +37,6 @@ public class BiodataController {
 		return result;
 	}
 	
-	@RequestMapping(value="/search", method=RequestMethod.GET)
-	public ResponseEntity<Collection<Biodata>> searchByName(@RequestParam(value = "name") String name) {
-		Collection<Biodata> list = biodataService.searchByName(name);
-		ResponseEntity<Collection<Biodata>> result = new ResponseEntity<>(list, HttpStatus.OK);
-		return result;
-	}
-	
-//	@RequestMapping(value="/search", method=RequestMethod.GET)
-//	public ResponseEntity<Collection<Biodata>> searchByMajors(@RequestParam(value="majors") String majors) {
-//		Collection<Biodata> list = biodataService.searchByMajors(majors);
-//		ResponseEntity<Collection<Biodata>> result = new ResponseEntity<>(list, HttpStatus.OK);
-//		return result;
-//	}
-	
 	@RequestMapping(value="/", method=RequestMethod.POST)
 	public ResponseEntity<Biodata> save(@RequestBody Biodata biodata) {
 //		biodata.setCreateBy(session.getSession('id"));
@@ -60,14 +46,15 @@ public class BiodataController {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-	public ResponseEntity<Biodata> deleteById(@PathVariable("id") Integer id) {
-		biodataService.deleteById(id);
+	public ResponseEntity<Biodata> softDeleteById(@PathVariable("id") Integer id) {
+		biodataService.softDeleteById(id);
 		ResponseEntity<Biodata> result = new ResponseEntity<>(HttpStatus.OK);
 		return result;
 	}
 	
 	@RequestMapping(value="/", method=RequestMethod.PUT)
 	public ResponseEntity<Biodata> update(@RequestBody Biodata biodata) {
+		biodataService.update(biodata);
 		ResponseEntity<Biodata> result = new ResponseEntity<>(HttpStatus.OK);
 		return result;
 	}	

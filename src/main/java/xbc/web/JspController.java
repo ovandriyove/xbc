@@ -10,5 +10,9 @@ public class JspController {
 	public String menu() {
 		return "menu";
 	}
-		
+
+	@RequestMapping("biodata")
+	public String biodata() {
+		return "biodata";
+	}
 }

@@ -12,8 +12,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
@@ -25,8 +23,8 @@ public class Menu implements Serializable {
 	@Column(name="id", length=11, nullable=false, columnDefinition = "serial")
 	private Integer id;
 	
-	@Column(name="code", length=50, nullable=false)
-//	@Column(name="code", length=50)
+//	@Column(name="code", length=50, nullable=false)
+	@Column(name="code", length=50)
 	private String code;
 	
 	@Column(name="title", length= 50, nullable=false)
@@ -48,11 +46,9 @@ public class Menu implements Serializable {
 	private String menuUrl;
 	
 	@Column(name="create_by", length=11, nullable=false)
-//	@Column(name="create_by", length=11)
 	private Integer createBy;
 	
 	@Column(name="created_on", nullable=false)
-//	@Column(name="created_on")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/Jakarta")
 	private Date createdOn;
