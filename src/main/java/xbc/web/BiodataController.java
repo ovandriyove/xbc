@@ -23,7 +23,7 @@ public class BiodataController {
 	@Autowired
 	private BiodataService biodataService;
 	
-	@RequestMapping(value="/search", method=RequestMethod.GET)
+	@RequestMapping(value="/", method=RequestMethod.GET)
 	public ResponseEntity<Collection<Biodata>> search(@RequestParam(value = "nameOrMajors") String nameOrMajors) {
 		Collection<Biodata> list = biodataService.search(nameOrMajors);
 		ResponseEntity<Collection<Biodata>> result = new ResponseEntity<>(list, HttpStatus.OK);

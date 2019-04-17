@@ -11,7 +11,7 @@
 			<div class="col-xs-12">
 				<div class="box">
 					<div class="box-body">
-						<h3 class="box-title">Menu</h3>
+						<h3 class="box-title">Biodata</h3>
 						<br> <br>
 						<div class="row">
 							<div class="box-tools">
@@ -141,121 +141,125 @@
 							<h4 class="modal-title">Edit Biodata</h4>
 						</div>
 						<div class="modal-body">
-						<div class="col-xs-12">
-								<div class="form-group">
-									<input type="hidden" class="form-control" name="id:number"
-										id="idEdit">
-								</div>
-							</div>
 							<div class="row">
-								<div class="form-group">
-									<div class="col-xs-6">
-										<input type="text" class="form-control" name="name" id="nameEdit"
-											placeholder="Name">
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-xs-6">
-										<input type="text" class="form-control" name="gender" id="gender"
-											placeholder="Gender">
+								<div class="col-xs-12">
+									<div class="form-group">
+										<input type="hidden" class="form-control" name="id:number"
+											id="idEdit">
 									</div>
 								</div>
 							</div>
 							<div class="row">
-								<div class="form-group">
-									<div class="col-xs-6">
-										<input type="text" class="form-control" name="educationLevel" id="educationLevelEdit"
-											placeholder="Education Level">
+								<div class="col-xs-4">
+									<div class="form-group">
+										<input type="text" class="form-control" name="name"
+											id="nameEdit">
 									</div>
 								</div>
-								<div class="form-group">
-									<div class="col-xs-6">
-										<input type="text" class="form-control" name="bootcampTestType" id="bootcampTestType"
-											placeholder="Bootcamp Test Type">
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="form-group">
-									<div class="col-xs-6">
-										<input type="text" class="form-control" name="lastEducation" id="lastEducationEdit"
-											placeholder="Last Education">
-									</div>
-								</div>
-								<div class="col-xs-1"></div>
-								<div class="form-group">
-									<div class="col-xs-1">
-										<input type="text" class="form-control" name="iq" id="iq"
-											placeholder="IQ">
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-xs-1">
-										<input type="text" class="form-control" name="du" id="du"
-											placeholder="DU">
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-xs-1">
-										<input type="text" class="form-control" name="nestedLogic" id="nestedLogic"
-											placeholder="NL">
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-xs-1">
-										<input type="text" class="form-control" name="joinTable" id="joinTable"
-											placeholder="JT">
-									</div>
-								</div>
-								<div class="col-xs-1"></div>
-							</div>
-							<div class="row">
-								<div class="form-group">
-									<div class="col-xs-6">
-										<input type="text" class="form-control" name="graduationYear" id="graduationYearEdit"
-											placeholder="Graduation Year">
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-xs-6">
-										<input type="text" class="form-control" name="arithmetic" id="arithmetic"
-											placeholder="Arithmetic">
+								<div class="col-xs-8">
+									<div class="form-group">
+										Gender&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+											<input type="radio" name="gender" value="M" id="gender" checked>
+											<label for="Male">&nbsp; M</label>
+											 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                       						<input type="radio" name="gender" value="F" id="genderFemale"checked>
+                        					<label for="Female">&nbsp; F</label>
 									</div>
 								</div>
 							</div>
 							<div class="row">
-								<div class="form-group">
-									<div class="col-xs-6">
-										<input type="text" class="form-control" name="majors" id="majorsEdit"
-											placeholder="Majors">
+								<div class="col-xs-4">
+									<div class="form-group">
+										<input type="text" class="form-control" name="lastEducation"
+											id="lastEducationEdit">
 									</div>
 								</div>
-								<div class="form-group">
-									<div class="col-xs-6">
-										<input type="text" class="form-control" name="tro" id="tro"
-											placeholder="TRO">
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="form-group">
-									<div class="col-xs-6">
-										<input type="text" class="form-control" name="gpa" id="gpaEdit"
-											placeholder="GPA">
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-xs-6">
-										<input type="text" class="form-control" name="interviewer" id="interviewer"
-											placeholder="Interviewer">
+								<div class="col-xs-8">
+									<div class="form-group">
+										<select class="form-control" name="bootcampTestType"
+											id="bootcampTestType">
+											<option>0</option>
+											<option>1</option>
+											<option>2</option>
+										</select>
 									</div>
 								</div>
 							</div>
 							<div class="row">
-								<div class="form-group">
-									<div class="col-xs-12">
-										<textarea class="form-control" rows="3" name="notes" id="notes"
-											placeholder="Notes"></textarea>
+								<div class="col-xs-4">
+									<div class="form-group">
+										<input type="text" class="form-control"
+											name="educationalLevel" id="educationalLevelEdit">
+									</div>
+								</div>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<input type="text" class="form-control" name="iq" id="iq" placeholder="IQ">
+									</div>
+								</div>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<input type="text" class="form-control" name="du" id="du" placeholder="DU">
+									</div>
+								</div>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<input type="text" class="form-control" name="nestedLogic" id="nestedLogic" placeholder="NL">
+									</div>
+								</div>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<input type="text" class="form-control" name="joinTable" id="joinTable" placeholder="JT">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-4">
+									<div class="form-group">
+										<input type="text" class="form-control" name="graduationYear"
+											id="graduationYearEdit">
+									</div>
+								</div>
+								<div class="col-xs-8">
+									<div class="form-group">
+										<input type="text" class="form-control" name="arithmetic"
+											id="arithmetic" placeholder="Arithmetic">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-4">
+									<div class="form-group">
+										<input type="text" class="form-control" name="majors"
+											id="majorsEdit">
+									</div>
+								</div>
+								<div class="col-xs-8">
+									<div class="form-group">
+										<input type="text" class="form-control" name="tro"
+											id="tro" placeholder="TRO">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-4">
+									<div class="form-group">
+										<input type="text" class="form-control" name="gpa"
+											id="gpaEdit">
+									</div>
+								</div>
+								<div class="col-xs-8">
+									<div class="form-group">
+										<input type="text" class="form-control" name="interviewer"
+											id="interviewer" placeholder="Interviewer">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="form-group">
+										<textarea class="form-control" rows="2" name="notes"
+											id="notes" placeholder="Notes"></textarea>
 									</div>
 								</div>
 							</div>
@@ -263,12 +267,13 @@
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default pull-left"
 								data-dismiss="modal">Cancel</button>
-							<button type="button" class="btn btn-primary">Save</button>
+							<button type="button" class="btn btn-primary" onclick="simpan()">Save</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</form>
+		
 		<!-- Pop up Delete -->
 		<div class="modal modal-warning fade" id="modal-delete">
 			<div class="modal-dialog">
