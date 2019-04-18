@@ -41,6 +41,7 @@ public class BiodataController {
 	public ResponseEntity<Biodata> save(@RequestBody Biodata biodata) {
 //		biodata.setCreateBy(session.getSession('id"));
 		biodataService.save(biodata);
+		
 		ResponseEntity<Biodata> result = new ResponseEntity<> (HttpStatus.OK);
 		return result;
 	}

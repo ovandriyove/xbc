@@ -5,10 +5,10 @@
 
 <hibernate-configuration>
 	<session-factory>
-	      <!-- mapping apabila menggunakan annotation -->
-	      <!-- contoh : <mapping class="xbc.model.Menu"/>-->
-	           <mapping class="xbc.model.Menu"/>
-	           <mapping class="xbc.model.Biodata"/>		
-	      
+		<!-- mapping apabila menggunakan annotation -->
+		<!-- contoh : <mapping class="xbc.model.Menu"/> -->
+		<mapping class="xbc.model.Menu" />
+		<mapping class="xbc.model.Biodata" />
+		<mapping class="xbc.model.AuditLog" />
 	</session-factory>
 </hibernate-configuration>

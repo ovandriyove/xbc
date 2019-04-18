@@ -13,9 +13,12 @@ import xbc.model.Biodata;
 @Service
 @Transactional
 public class BiodataServiceImpl implements BiodataService {
-	
+
 	@Autowired
 	private BiodataDao biodataDao;
+
+	@Autowired
+	private AuditLogService auditLogService;
 
 	@Override
 	public Biodata findOne(Integer id) {
@@ -30,8 +33,16 @@ public class BiodataServiceImpl implements BiodataService {
 	@Override
 	public Biodata update(Biodata newBiodata) {
 		Biodata biodata = biodataDao.findOne(newBiodata.getId());
+		String jsonBefore = auditLogService.objectToJsonString(biodata);
+		
 		biodata.setModifiedBy(1);
 		biodata.setModifiedOn(new Date());
+		biodata.setName(newBiodata.getName());
+		biodata.setLastEducation(newBiodata.getLastEducation());
+		biodata.setEducationalLevel(newBiodata.getEducationalLevel());
+		biodata.setGraduationYear(newBiodata.getGraduationYear());
+		biodata.setMajors(newBiodata.getMajors());
+		biodata.setGpa(newBiodata.getGpa());
 		biodata.setGender(newBiodata.getGender());
 		biodata.setBootcampTestType(newBiodata.getBootcampTestType());
 		biodata.setIq(newBiodata.getId());
@@ -41,6 +52,9 @@ public class BiodataServiceImpl implements BiodataService {
 		biodata.setTro(newBiodata.getTro());
 		biodata.setInterviewer(newBiodata.getInterviewer());
 		biodata.setNotes(newBiodata.getNotes());
+
+		String jsonAfter = auditLogService.objectToJsonString(biodata);
+		auditLogService.logUpdate(jsonBefore, jsonAfter);
 		return biodataDao.update(biodata);
 	}
 
@@ -60,19 +74,21 @@ public class BiodataServiceImpl implements BiodataService {
 		biodata.setCreatedOn(new Date());
 		biodata.setDelete(false);
 		biodataDao.save(biodata);
+		auditLogService.logInsert(auditLogService.objectToJsonString(biodata));
 	}
 
 	@Override
 	public Collection<Biodata> search(String nameOrMajors) {
 		return biodataDao.search(nameOrMajors);
 	}
-	
-	@Override 
+
+	@Override
 	public Biodata softDeleteById(Integer id) {
 		Biodata biodata = biodataDao.findOne(id);
 		biodata.setDeleteBy(1);
 		biodata.setDeleteOn(new Date());
 		biodata.setDelete(true);
+		auditLogService.logDelete(auditLogService.objectToJsonString(biodata));
 		return biodataDao.update(biodata);
 	}
 }

@@ -7,7 +7,7 @@
 	<!-- Tampilan & input -->
 	<section class="content">
 		<!--  Search -->
-				<div class="row">
+		<div class="row">
 			<div class="col-xs-12">
 				<div class="box">
 					<div class="box-body">
@@ -31,7 +31,7 @@
 									<div class="input-group input-group-sm">
 										<div class="input-group-btn pull-right">
 											<button type="button" class="btn btn-primary btn-sm pull-right"
-												data-toggle="modal" data-target="#modalBiodata">
+												data-toggle="modal" data-target="#modalBiodata" onclick="insert()">
 												<i class="fa fa-plus"></i>
 											</button>
 										</div>
@@ -178,9 +178,9 @@
 									<div class="form-group">
 										<select class="form-control" name="bootcampTestType"
 											id="bootcampTestType">
-											<option>0</option>
-											<option>1</option>
-											<option>2</option>
+											<option>Silahkan</option>
+											<option value="1">Test IT Expert</option>
+											<option value="2">Test IT Kurang Expert</option>
 										</select>
 									</div>
 								</div>
@@ -381,30 +381,34 @@
 		});
     }
 
-    function hapus(id) {
-        if (confirm("Are you sure to delete this data?")) {
-          $.ajax({
-            type: 'delete',
-            url: 'biodata/' + id,
-            success: function (d) {
-              refreshTabel();
-            },
-            error: function (d) {
-              console.log('Error');
-            }
-          });
-        }
-      }
+	function insert() {
+		modeSubmit = 'insert';
+	}
 
-    var tabelBiodata;
-    $(document).ready(function () {
-      tabelBiodata = $('#tabel-biodata').DataTable({
-        'searching': false,
-        'lengthChange': false,
-        'lengthMenu': [10]
-      });
-      refreshTabel();
-    });
+	function hapus(id) {
+		if (confirm("Are you sure to delete this data?")) {
+			$.ajax({
+				type : 'delete',
+				url : 'biodata/' + id,
+				success : function(d) {
+					refreshTabel();
+				},
+				error : function(d) {
+					console.log('Error');
+				}
+			});
+		}
+	}
+
+	var tabelBiodata;
+	$(document).ready(function() {
+		tabelBiodata = $('#tabel-biodata').DataTable({
+			'searching' : false,
+			'lengthChange' : false,
+			'lengthMenu' : [ 10 ]
+		});
+		refreshTabel();
+	});
 	</script>
 </body>
 </html>

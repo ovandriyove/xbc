@@ -17,6 +17,9 @@ public class MenuServiceImpl  implements MenuService {
 	@Autowired
 	private MenuDao menuDao;
 	
+	@Autowired
+	private AuditLogService auditLogService;
+	
 	@Override
 	public Menu findOne(Integer id) {
 		return menuDao.findOne(id);
@@ -31,6 +34,8 @@ public class MenuServiceImpl  implements MenuService {
 	@Override
 	public Menu update(Menu newMenu) {
 		Menu menu = menuDao.findOne(newMenu.getId());
+		String jsonBefore = auditLogService.objectToJsonString(menu);
+		
 		menu.setModifiedBy(1);
 		menu.setModifiedOn(new Date());
 		menu.setTitle(newMenu.getTitle());
@@ -40,6 +45,8 @@ public class MenuServiceImpl  implements MenuService {
 		menu.setMenuParent(newMenu.getMenuParent());
 		menu.setMenuUrl(newMenu.getMenuUrl());
 //		menu.setDelete(newMenu.isDelete());
+		
+		String jsonAfter = auditLogService.objectToJsonString(menu);
 		return menuDao.update(menu);
 	}
 	
@@ -58,8 +65,10 @@ public class MenuServiceImpl  implements MenuService {
 		menu.setCreateBy(1);
 		menu.setCreatedOn(new Date());
 		menu.setDelete(false);
+//		menu.setCode("1");
 		menuDao.save(menu);
 		menu.setCode(generateCode(menu.getId()));
+		auditLogService.logInsert(auditLogService.objectToJsonString(menu));
 		menuDao.update(menu);
 	}
 	
@@ -74,6 +83,7 @@ public class MenuServiceImpl  implements MenuService {
 		menu.setDeleteBy(1);
 		menu.setDeleteOn(new Date());
 		menu.setDelete(true);
+		auditLogService.logDelete(auditLogService.objectToJsonString(menu));
 		return menuDao.update(menu);
 	}
 	

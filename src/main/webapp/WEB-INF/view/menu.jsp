@@ -31,7 +31,7 @@
 									<div class="input-group input-group-sm">
 										<div class="input-group-btn pull-right">
 											<button type="button" class="btn btn-primary btn-sm pull-right"
-												data-toggle="modal" data-target="#modalMenu">
+												data-toggle="modal" data-target="#modalMenu" onclick='insert()'>
 												<i class="fa fa-plus"></i>
 											</button>
 										</div>
@@ -97,8 +97,8 @@
 											id="menuOrder" placeholder="Menu Order">
 									</div>
 									<div class="form-group">
-										<select class="form-control" name="menuParent:number" id="menuParent">
-										<option>0</option><option>1</option><option>2</option>
+										<select class="custom-select d-block w-100 form-control" id="menuParent"
+												name="menuParent">
 										</select>
 									</div>
 									<div class="form-group">
@@ -174,8 +174,8 @@
 								</div>
 								<div class="col-xs-6">
 									<div class="form-group">
-										<select class="form-control" name="menuParent:number" id="menuParentEdit">
-										<option>0</option><option>1</option><option>2</option>
+										<select class="custom-select d-block w-100 form-control" id="menuParentEdit"
+												name="menuParent">
 										</select>
 									</div>
 									<div class="form-group">
@@ -247,6 +247,8 @@
 				title: $('#search').val()
 			},
 			success: function(d) {
+				var s = '<option>Silahkan Pilih</option>' +
+					'<option value="0">Master</option>';
 				tabelMenu.clear().draw();
 				$(d).each(function(index, element){
 					tabelMenu.row.add([
@@ -256,9 +258,12 @@
 						'<input class="btn btn-default btn-sm" type="button" value="Edit" data-toggle="modal" data-target="#modalEdit" onclick="loadEdit(\'' + element.id + '\')"> &nbsp;' +
 		 				'<input class="btn btn-danger btn-sm" type="button" value="Hapus" data-toggle="modal" dataId ="'+element.id+'" onclick="hapus(\'' + element.id + '\')">'
 					]).draw();
+
+					s += '<option value="' + element.id + '" data-title="' + element.title + '">'
+					+ element.title + '</option>';
 					
 				})
-				
+				$('#menuParent').html(s);
 			},
 			error: function(d) {
 				console.log('Error');
@@ -304,6 +309,15 @@
 			url: 'menu/' + id,
 			success: function(d) {
 				refreshTabel();
+				var s = '';
+				$(d).each(function(index, element){
+					s += '<option value="' + element.menuParent + '" data-title="' + element.title + '">'
+					+ element.menuParent + '</option>';
+					s += '<option value="' + element.id + '" data-title="' + element.title + '">'
+					+ element.title + '</option>';
+				})
+				$('#menuParentEdit').html(s);
+				
 				$('#idEdit').val(d.id);
 				$('#codeEdit').val(d.code);
 				$('#titleEdit').val(d.title);
@@ -352,6 +366,10 @@
 //		});
 //	}
 
+	function insert() {
+		modeSubmit = 'insert';
+	}
+
     function hapus(id) {
         if (confirm("Are you sure to delete this data?")) {
           $.ajax({
@@ -365,8 +383,8 @@
             }
           });
         }
-      }
-
+     }
+	
     var tabelMenu;
     $(document).ready(function () {
       tabelMenu = $('#tabel-menu').DataTable({
