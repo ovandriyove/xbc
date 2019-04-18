@@ -176,11 +176,11 @@
 								</div>
 								<div class="col-xs-8">
 									<div class="form-group">
-										<select class="form-control" name="bootcampTestType"
+										<select class="custom-select d-block w-100 form-control" name="bootcampTestType"
 											id="bootcampTestType">
-											<option>Silahkan</option>
-											<option value="1">Test IT Expert</option>
-											<option value="2">Test IT Kurang Expert</option>
+											<option value="" disabled selected> - Choose Bootcamp Test Type -</option>
+											<option value="0">Offline</option>
+											<option value="1">Online</option>
 										</select>
 									</div>
 								</div>

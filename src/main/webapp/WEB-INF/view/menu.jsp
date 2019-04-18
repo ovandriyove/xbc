@@ -247,7 +247,7 @@
 				title: $('#search').val()
 			},
 			success: function(d) {
-				var s = '<option>Silahkan Pilih</option>' +
+				var s = '<option value ="" disabled selected>- Choose Menu Parent -</option>' +
 					'<option value="0">Master</option>';
 				tabelMenu.clear().draw();
 				$(d).each(function(index, element){

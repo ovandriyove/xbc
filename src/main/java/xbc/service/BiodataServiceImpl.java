@@ -52,10 +52,11 @@ public class BiodataServiceImpl implements BiodataService {
 		biodata.setTro(newBiodata.getTro());
 		biodata.setInterviewer(newBiodata.getInterviewer());
 		biodata.setNotes(newBiodata.getNotes());
-
+		Biodata result = biodataDao.update(biodata);
+		
 		String jsonAfter = auditLogService.objectToJsonString(biodata);
 		auditLogService.logUpdate(jsonBefore, jsonAfter);
-		return biodataDao.update(biodata);
+		return result;
 	}
 
 	@Override
@@ -74,6 +75,7 @@ public class BiodataServiceImpl implements BiodataService {
 		biodata.setCreatedOn(new Date());
 		biodata.setDelete(false);
 		biodataDao.save(biodata);
+		
 		auditLogService.logInsert(auditLogService.objectToJsonString(biodata));
 	}
 
@@ -88,7 +90,9 @@ public class BiodataServiceImpl implements BiodataService {
 		biodata.setDeleteBy(1);
 		biodata.setDeleteOn(new Date());
 		biodata.setDelete(true);
+		Biodata result = biodataDao.update(biodata);
+		
 		auditLogService.logDelete(auditLogService.objectToJsonString(biodata));
-		return biodataDao.update(biodata);
+		return result;
 	}
 }
