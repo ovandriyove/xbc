@@ -373,6 +373,15 @@
 				$('#educationalLevelEdit').val(d.educationalLevel);
 				$('#majorsEdit').val(d.majors);
 				$('#gpaEdit').val(d.gpa);
+				$('#gender').val(d.gender);
+				$('#bootcamptTestType').val(d.bootcampTestType);
+				$('#iq').val(d.iq);
+				$('#du').val(d.du);
+				$('#nestedLogic').val(d.nestedLogic);
+				$('#joinTable').val(d.joinTable);
+				$('#tro').val(d.tro);
+				$('#interviewer').val(d.interviewer);
+				$('#notes').val(d.notes);
 				modeSubmit ='update';
 			},
             error: function(d) {

@@ -9,6 +9,11 @@
 		<!-- contoh : <mapping class="xbc.model.Menu"/> -->
 		<mapping class="xbc.model.Menu" />
 		<mapping class="xbc.model.Biodata" />
+		<mapping class="xbc.model.Batch" />
+		<mapping class="xbc.model.Room" />
+		<mapping class="xbc.model.Technology" />
+		<mapping class="xbc.model.Trainer" />
+		<mapping class="xbc.model.BootcampType" />
 		<mapping class="xbc.model.AuditLog" />
 	</session-factory>
 </hibernate-configuration>
