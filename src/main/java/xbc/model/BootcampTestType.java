@@ -10,17 +10,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="t_bootcamptype")
-public class BootcampType implements Serializable {
+@Table(name="t_bootcamp_test_type")
+public class BootcampTestType implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id", length=11, columnDefinition="serial")
+	@Column(name="id", length=11, nullable=false, columnDefinition="serial")
 	private Integer id;
 	
 	@Column(name="name", length=255)
 	private String name;
-
+	
 	@Column(name="is_delete")
 	private boolean isdelete;
 

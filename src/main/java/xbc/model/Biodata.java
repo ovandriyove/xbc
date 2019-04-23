@@ -8,12 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @Entity
 @Table(name="t_biodata")
@@ -43,6 +44,10 @@ public class Biodata implements Serializable {
 	
 	@Column(name="gpa", length=5, nullable=false)
 	private String gpa;
+	
+	@ManyToOne
+	@JoinColumn(name="bootcamp_test_type", updatable=false, insertable=false)
+	private BootcampTestType bootCampTestType;
 	
 	@Column(name="bootcamp_test_type", length=11)
 	private Integer bootcampTestType;
@@ -128,6 +133,10 @@ public class Biodata implements Serializable {
 
 	public String getGpa() {
 		return gpa;
+	}
+
+	public BootcampTestType getBootCampTestType() {
+		return bootCampTestType;
 	}
 
 	public Integer getBootcampTestType() {
@@ -224,6 +233,10 @@ public class Biodata implements Serializable {
 
 	public void setGpa(String gpa) {
 		this.gpa = gpa;
+	}
+
+	public void setBootCampTestType(BootcampTestType bootCampTestType) {
+		this.bootCampTestType = bootCampTestType;
 	}
 
 	public void setBootcampTestType(Integer bootcampTestType) {

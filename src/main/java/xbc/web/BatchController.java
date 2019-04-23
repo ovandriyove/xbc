@@ -22,6 +22,13 @@ public class BatchController {
 	@Autowired
 	private BatchService batchService;
 	
+	@RequestMapping(value="/findAll", method=RequestMethod.GET)
+	public ResponseEntity<Collection<Batch>> findAll() {
+		Collection<Batch> list = batchService.findAll();
+		ResponseEntity<Collection<Batch>> result = new ResponseEntity<>(list, HttpStatus.OK);
+		return result;
+	}
+	
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public ResponseEntity<Collection<Batch>> search(@RequestParam(value = "name") String name) {
 		Collection<Batch> list = batchService.search(name);
@@ -38,9 +45,7 @@ public class BatchController {
 	
 	@RequestMapping(value="/", method=RequestMethod.POST)
 	public ResponseEntity<Batch> save(@RequestBody Batch batch) {
-//		batch.setCreateBy(session.getSession('id"));
 		batchService.save(batch);
-		
 		ResponseEntity<Batch> result = new ResponseEntity<> (HttpStatus.OK);
 		return result;
 	}

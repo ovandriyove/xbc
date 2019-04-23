@@ -24,4 +24,9 @@ public class JspController {
 	public String batch() {
 		return "batch";
 	}
+	
+	@RequestMapping("clazz")
+	public String clazz() {
+		return "clazz";
+	}
 }

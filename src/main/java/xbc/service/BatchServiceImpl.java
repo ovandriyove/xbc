@@ -16,6 +16,9 @@ public class BatchServiceImpl implements BatchService {
 	
 	@Autowired
 	private BatchDao batchDao;
+	
+	@Autowired
+	private AuditLogService auditLogService;
 
 	@Override
 	public Batch findOne(Integer id) {
@@ -30,6 +33,7 @@ public class BatchServiceImpl implements BatchService {
 	@Override
 	public Batch update(Batch newBatch) {
 		Batch batch = batchDao.findOne(newBatch.getId());
+		String jsonBefore = auditLogService.objectToJsonString(batch);
 		
 		batch.setModifiedBy(1);
 		batch.setModifiedOn(new Date());
@@ -43,6 +47,8 @@ public class BatchServiceImpl implements BatchService {
 		batch.setNotes(newBatch.getNotes());
 		Batch result = batchDao.update(batch);
 		
+		String jsonAfter = auditLogService.objectToJsonString(batch);
+		auditLogService.logUpdate(jsonBefore, jsonAfter);
 		return result;
 	}
 
@@ -60,9 +66,10 @@ public class BatchServiceImpl implements BatchService {
 	public void save(Batch batch) {
 		batch.setCreatedBy(1);
 		batch.setCreatedOn(new Date());
-		batch.setDelete(false);
-		
+		batch.setDelete(false);	
 		batchDao.save(batch);
+		
+		auditLogService.logInsert(auditLogService.objectToJsonString(batch));
 	}
 
 	@Override
@@ -78,6 +85,7 @@ public class BatchServiceImpl implements BatchService {
 		batch.setDelete(true);
 		Batch result = batchDao.update(batch);
 		
+		auditLogService.logDelete(auditLogService.objectToJsonString(batch));
 		return result;
 	}
 }

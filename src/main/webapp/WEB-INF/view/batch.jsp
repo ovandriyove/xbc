@@ -167,14 +167,23 @@
 						<div class="modal-body">
 							<div class="row">
 								<div class="col-xs-12">
-									<input type="text" class="form-control" name="biodataId" id="biodataId" placeholder="Add Participant">
+									<div class="form-group">
+										<input type="hidden" class="form-control" name="batchId" id="idParticipant">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="form-group">
+										<select class="custom-select d-block w-100 form-control" name="biodataId" id="biodataId"></select>
+									</div>
 								</div>
 							</div>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default pull-left"
 								data-dismiss="modal">Cancel</button>
-							<button type="button" class="btn btn-primary">Save</button>
+							<button type="button" class="btn btn-primary" onclick="simpanPartcipant()">Save</button>
 						</div>
 					</div>
 				</div>
@@ -201,7 +210,7 @@
 						element.name,
 						element.trainer.name,
 						'<input class="btn btn-default btn-sm" type="button" value="Edit" data-toggle="modal" data-target="#modalBatch" onclick="loadEdit(\'' + element.id + '\')"> &nbsp;' +
-						'<input class="btn btn-danger btn-sm" type="button" value="Add Participant" data-toggle="modal" data-target="#modalAddParticipant"> &nbsp;' +
+						'<input class="btn btn-danger btn-sm" type="button" value="Add Participant" data-toggle="modal" data-target="#modalAddParticipant" onclick="loadParticipant(\'' + element.id + '\')"> &nbsp;' +
 						'<input class="btn btn-primary btn-sm" type="button" value="Setup Test"> '
 					]).draw();
 				})	
@@ -238,6 +247,41 @@
 			error: function(d) {
 				console.log('Error')
 			}
+		});
+	}
+
+//	Add Participant
+    function loadParticipant(id) {
+    $('#form-addParticipant').trigger("reset");
+	$('#form-addParticipant input[type=hidden]').val('');   
+	$.ajax({
+		type: 'get',
+		url: 'batch/' + id,
+		success: function(d) {
+			refreshTabel();
+			$('#idParticipant').val(d.id);
+		},
+           error: function(d) {
+			console.log('Error');
+           }
+	});
+   }
+	
+	function simpanPartcipant() {
+		var data = $('#form-addParticipant').serializeJSON();
+		$('#modalAddParticipant').modal('hide');
+		$.ajax({
+			type: 'post',
+			url: 'clazz/',
+			data: JSON.stringify(data),
+			contentType: 'application/json',
+			success: function(d) {
+				refreshTabel();
+				console.log('Success');
+			},
+			error: function(d) {
+				console.log('Error');
+			}	
 		});
 	}
 
@@ -287,9 +331,8 @@
 	function showRoom(d) {
 		var s = '<option value="" disabled selected> - Choose Room -</option>';
 		$(d).each(function(index, element) {
-            s += '<option value="' + element.roomId 
-                + '" data-nama="' + element.name + '">' 
-                + element.roomId + ' - ' 
+            s += '<option value="' + element.id 
+                + '" data-nama="' + element.name + '">'
                 + element.name
                 + '</option>';
 		});
@@ -312,9 +355,8 @@
 	function showTechnology(d) {
 		var s = '<option value="" disabled selected> - Choose Technology -</option>';
 		$(d).each(function(index, element) {
-            s += '<option value="' + element.technologyId 
+            s += '<option value="' + element.id 
                 + '" data-nama="' + element.name + '">' 
-                + element.technologyId + ' - ' 
                 + element.name
                 + '</option>';
 		});
@@ -337,9 +379,8 @@
 	function showTrainer(d) {
 		var s = '<option value="" disabled selected> - Choose Trainer -</option>';
 		$(d).each(function(index, element) {
-            s += '<option value="' + element.trainerId 
-                + '" data-nama="' + element.name + '">' 
-                + element.trainerId + ' - ' 
+            s += '<option value="' + element.id 
+                + '" data-nama="' + element.name + '">'
                 + element.name
                 + '</option>';
 		});
@@ -362,13 +403,36 @@
 	function showBootcampType(d) {
 		var s = '<option value="" disabled selected> - Choose BootcampType -</option>';
 		$(d).each(function(index, element) {
-            s += '<option value="' + element.bootcampTypeId 
-                + '" data-nama="' + element.name + '">' 
-                + element.bootcampTypeId + ' - ' 
+            s += '<option value="' + element.id 
+                + '" data-nama="' + element.name + '">'
                 + element.name
                 + '</option>';
 		});
         $('#bootcampTypeId').html(s);
+    }
+
+	function loadBiodata() {
+        $.ajax({
+            type: 'GET',
+            url: 'biodata/findAll/',
+            success: function(d) {
+                showBiodata(d);
+            },
+            error: function(d) {
+				console.log('Error - loadBiodata');
+            }
+        });
+    }
+
+	function showBiodata(d) {
+		var s = '<option value="" disabled selected> - Add Participant -</option>';
+		$(d).each(function(index, element) {
+            s += '<option value="' + element.id 
+                + '" data-nama="' + element.name + '">'
+                + element.name
+                + '</option>';
+		});
+        $('#biodataId').html(s);
     }
 
 	var tabelBatch;
@@ -391,6 +455,7 @@
 		loadTechnology();
 		loadTrainer();
 		loadBootcampType();
+		loadBiodata();
 	});
 	</script>
 </body>

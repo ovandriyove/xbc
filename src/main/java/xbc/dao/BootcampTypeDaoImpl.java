@@ -1,5 +1,8 @@
 package xbc.dao;
 
+import java.util.Collection;
+
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import xbc.model.BootcampType;
@@ -9,5 +12,13 @@ public class BootcampTypeDaoImpl extends AbstractHibernateDao<BootcampType> impl
 
 	public BootcampTypeDaoImpl() {
 		setClazz(BootcampType.class);
+	}
+	
+	public Collection<BootcampType> findAll() {
+		String hql = "FROM BootcampType B "
+				   + "WHERE B.isDelete = 'false'";
+		Query q = getCurrentSession().createQuery(hql);
+		Collection<BootcampType> result = q.list();
+		return result;
 	}
 }

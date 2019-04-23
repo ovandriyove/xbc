@@ -15,26 +15,36 @@ public class Technology implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="technologi_id", length=11, columnDefinition="serial")
-	private Integer technologyId;
+	@Column(name="id", length=11, columnDefinition="serial")
+	private Integer id;
 	
-	@Column(name="name", length=50)
+	@Column(name="name", length=255)
 	private String name;
 
-	public Integer getTechnologyId() {
-		return technologyId;
+	@Column(name="is_delete")
+	private boolean isdelete;
+
+	public Integer getId() {
+		return id;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setTechnologyId(Integer technologyId) {
-		this.technologyId = technologyId;
+	public boolean isIsdelete() {
+		return isdelete;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	public void setIsdelete(boolean isdelete) {
+		this.isdelete = isdelete;
+	}
 }

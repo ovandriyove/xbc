@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import xbc.dao.AuditLogDao;
 import xbc.model.AuditLog;
@@ -56,7 +57,7 @@ public class AuditLogServiceImpl implements AuditLogService {
 	public String objectToJsonString(Object object) {
 		String jsonString = null;
 		try {
-			jsonString = new ObjectMapper().writeValueAsString(object);
+			jsonString = new ObjectMapper().enable(SerializationFeature.WRAP_ROOT_VALUE).writeValueAsString(object);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}

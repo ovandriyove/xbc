@@ -24,4 +24,12 @@ public class BiodataDaoImpl extends AbstractHibernateDao<Biodata> implements Bio
 		Collection<Biodata> result = q.list();
 		return result;
 	}
+	
+	public Collection<Biodata> findAll() {
+		String hql = "FROM Biodata B "
+				   + "WHERE B.isDelete = 'false'";
+		Query q = getCurrentSession().createQuery(hql);
+		Collection<Biodata> result = q.list();
+		return result;
+	}
 }

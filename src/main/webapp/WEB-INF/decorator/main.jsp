@@ -126,6 +126,7 @@
 					<li><a href="menu"><i class="fa fa-list"></i><span>Menu</span></a></li>
 					<li><a href="biodata"><i class="fa fa-user"></i><span>Biodata</span></a></li>
 					<li><a href="batch"><i class="fa fa-book"></i><span>Batch</span></a></li>
+					<li><a href="clazz"><i class="fa a-folder"></i><span>Class</span></a></li>
 				</ul>
 			</section>
 			<!-- /.sidebar -->

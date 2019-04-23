@@ -178,9 +178,6 @@
 									<div class="form-group">
 										<select class="custom-select d-block w-100 form-control" name="bootcampTestType"
 											id="bootcampTestType">
-											<option value="" disabled selected> - Choose Bootcamp Test Type -</option>
-											<option value="0">Offline</option>
-											<option value="1">Online</option>
 										</select>
 									</div>
 								</div>
@@ -316,10 +313,18 @@
 						element.name,
 						element.majors,
 						element.gpa,
-						'<input class="btn btn-default btn-sm" type="button" value="Edit" data-toggle="modal" data-target="#modalEdit" onclick="loadEdit(\'' + element.id + '\')"> &nbsp;' +
-		 				'<input class="btn btn-danger btn-sm" type="button" value="Hapus" data-toggle="modal" dataId ="'+element.id+'" onclick="hapus(\'' + element.id + '\')">'
+						'<div class="input-group-btn">' +
+						'<button type="button" class="btn btn-default btn-sm pull-left" data-toggle="dropdown">' +
+						'<i class="fa fa-navicon"></i>' +
+                        '</button>' +
+                        '<ul class="dropdown-menu pull-left">' +
+                        '<li><a href="javascript:void(0)" value="Edit" data-toggle="modal" data-target="#modalEdit" onclick="loadEdit(\'' + element.id + '\')">Edit</a></li>' +
+                        '<li><a href="javascript:void(0)" value="Delete" onclick="hapus(\'' + element.id + '\')">Delete</a></li>' +
+                        '</ul>' +
+                        '</div>'
+                    	//'<input class="btn btn-default btn-sm" type="button" value="Edit" data-toggle="modal" data-target="#modalEdit" onclick="loadEdit(\'' + element.id + '\')"> &nbsp;' +
+    	 				//'<input class="btn btn-danger btn-sm" type="button" value="Hapus" data-toggle="modal" dataId ="'+element.id+'" onclick="hapus(\'' + element.id + '\')">'
 					]).draw();
-					
 				})
 				
 			},
@@ -410,6 +415,30 @@
 		}
 	}
 
+	function loadBootcampTestType() {
+        $.ajax({
+            type: 'GET',
+            url: 'bootcampTestType/',
+            success: function(d) {
+                showBootcampTestType(d);
+            },
+            error: function(d) {
+				console.log('Error - loadBootcampTestType');
+            }
+        });
+    }
+
+	function showBootcampTestType(d) {
+		var s = '<option value="" disabled selected> - Choose BootcampTestType -</option>';
+		$(d).each(function(index, element) {
+            s += '<option value="' + element.id 
+                + '" data-nama="' + element.name + '">' 
+                + element.name
+                + '</option>';
+		});
+        $('#bootcampTestType').html(s);
+    }
+
 	var tabelBiodata;
 	$(document).ready(function() {
 		tabelBiodata = $('#tabel-biodata').DataTable({
@@ -418,6 +447,7 @@
 			'lengthMenu' : [ 10 ]
 		});
 		refreshTabel();
+		loadBootcampTestType();
 	});
 	</script>
 </body>
