@@ -45,9 +45,10 @@ public class BiodataServiceImpl implements BiodataService {
 		biodata.setGpa(newBiodata.getGpa());
 		biodata.setGender(newBiodata.getGender());
 		biodata.setBootcampTestType(newBiodata.getBootcampTestType());
-		biodata.setIq(newBiodata.getId());
+		biodata.setIq(newBiodata.getIq());
 		biodata.setDu(newBiodata.getDu());
 		biodata.setNestedLogic(newBiodata.getNestedLogic());
+		biodata.setJoinTable(newBiodata.getJoinTable());
 		biodata.setArithmetic(newBiodata.getArithmetic());
 		biodata.setTro(newBiodata.getTro());
 		biodata.setInterviewer(newBiodata.getInterviewer());

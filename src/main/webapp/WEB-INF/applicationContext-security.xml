@@ -23,22 +23,24 @@
 		<!-- access denied page -->
 		<access-denied-handler error-page="/403" />
 
-		<form-login 
-			login-page="/login"
+		<form-login login-page="/login"
 			default-target-url="/home" 
 			username-parameter="username"
 			password-parameter="password"
 			login-processing-url="/j_spring_security_check"
-			authentication-failure-url="/login?error" />
+			authentication-failure-url="/login?error"
+			authentication-success-handler-ref="authSuccessHandler" />
 
-		<logout 
-			logout-url="/logout"
-			logout-success-url="/home" />
+		<logout logout-url="/logout" logout-success-url="/home" />
 
 
-		<!-- disable csrf protection -->
-		<csrf disabled="true" />
-	</http>
+		   <!-- disable csrf protection -->
+        <csrf disabled="true" />
+    </http>
+
+
+    <b:bean id="authSuccessHandler" class="xbc.web.AuthSuccessHandler">
+    </b:bean>
 
 	<global-method-security
 		pre-post-annotations="enabled" />
@@ -47,8 +49,8 @@
 		<authentication-provider>
 			<jdbc-user-service 
 				data-source-ref="dataSource"
-				users-by-username-query="SELECT username, password, 1 AS ENABLED FROM t_user WHERE username = ?"
-				authorities-by-username-query="SELECT DISTINCT username, role FROM t_user WHERE username = ?" />
+				users-by-username-query="SELECT username, password, 1 AS is_delete FROM t_user WHERE username=?"
+				authorities-by-username-query="SELECT DISTINCT u.username, r.name FROM t_user u left join t_role r on r.id = u.role_id WHERE u.username=?" />
 		</authentication-provider>
 	</authentication-manager>
 </b:beans>

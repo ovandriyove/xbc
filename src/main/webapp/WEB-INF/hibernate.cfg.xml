@@ -7,6 +7,8 @@
 	<session-factory>
 		<!-- mapping apabila menggunakan annotation -->
 		<!-- contoh : <mapping class="xbc.model.Menu"/> -->
+		<mapping class="xbc.model.User"/>
+		<mapping class="xbc.model.Role"/>
 		<mapping class="xbc.model.Menu" />
 		<mapping class="xbc.model.Biodata" />
 		<mapping class="xbc.model.Batch" />

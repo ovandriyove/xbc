@@ -30,17 +30,29 @@ public class Batch implements Serializable {
 	@JoinColumn(name="room_id", updatable=false, insertable=false)
 	private Room room;
 	
+	@Column(name="room_id", length=11)
+	private Integer roomId;
+	
 	@ManyToOne
 	@JoinColumn(name="technology_id", updatable=false, insertable=false)
 	private Technology technology;
+	
+	@Column(name="technology_id", length=11)
+	private Integer technologyId;
 	
 	@ManyToOne
 	@JoinColumn(name="trainer_id", updatable=false, insertable=false)
 	private Trainer trainer;
 	
+	@Column(name="trainer_id", length=11)
+	private Integer trainerId;
+	
 	@ManyToOne
 	@JoinColumn(name="bootcamp_type_id", updatable=false, insertable=false)
 	private BootcampType bootcampType;
+	
+	@Column(name="bootcamp_type_id")
+	private Integer bootcampTypeId;
 	
 //	Batch Component	
 	@Column(name="name", length=255)
@@ -50,16 +62,17 @@ public class Batch implements Serializable {
 	private String notes;
 	
 //	Waktu 
+	
+	@Column(name="period_from")
+	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern="yyyy-MM-dd", timezone="Asia/Jakarta")
+	private Date periodFrom;
+	
 	@Column(name="period_to")
 	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/Jakarta")
+	@JsonFormat(pattern="yyyy-MM-dd", timezone="Asia/Jakarta")
 	private Date periodTo;
-	
-	@Column(name="period_form")
-	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/Jakarta")
-	private Date periodForm;
-	
+
 	@Column(name="created_on")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/Jakarta")
@@ -96,16 +109,32 @@ public class Batch implements Serializable {
 		return room;
 	}
 
+	public Integer getRoomId() {
+		return roomId;
+	}
+
 	public Technology getTechnology() {
 		return technology;
+	}
+
+	public Integer getTechnologyId() {
+		return technologyId;
 	}
 
 	public Trainer getTrainer() {
 		return trainer;
 	}
 
+	public Integer getTrainerId() {
+		return trainerId;
+	}
+
 	public BootcampType getBootcampType() {
 		return bootcampType;
+	}
+
+	public Integer getBootcampTypeId() {
+		return bootcampTypeId;
 	}
 
 	public String getName() {
@@ -116,12 +145,12 @@ public class Batch implements Serializable {
 		return notes;
 	}
 
-	public Date getPeriodTo() {
-		return periodTo;
+	public Date getPeriodFrom() {
+		return periodFrom;
 	}
 
-	public Date getPeriodForm() {
-		return periodForm;
+	public Date getPeriodTo() {
+		return periodTo;
 	}
 
 	public Date getCreatedOn() {
@@ -160,16 +189,32 @@ public class Batch implements Serializable {
 		this.room = room;
 	}
 
+	public void setRoomId(Integer roomId) {
+		this.roomId = roomId;
+	}
+
 	public void setTechnology(Technology technology) {
 		this.technology = technology;
+	}
+
+	public void setTechnologyId(Integer technologyId) {
+		this.technologyId = technologyId;
 	}
 
 	public void setTrainer(Trainer trainer) {
 		this.trainer = trainer;
 	}
 
+	public void setTrainerId(Integer trainerId) {
+		this.trainerId = trainerId;
+	}
+
 	public void setBootcampType(BootcampType bootcampType) {
 		this.bootcampType = bootcampType;
+	}
+
+	public void setBootcampTypeId(Integer bootcampTypeId) {
+		this.bootcampTypeId = bootcampTypeId;
 	}
 
 	public void setName(String name) {
@@ -180,12 +225,12 @@ public class Batch implements Serializable {
 		this.notes = notes;
 	}
 
-	public void setPeriodTo(Date periodTo) {
-		this.periodTo = periodTo;
+	public void setPeriodFrom(Date periodFrom) {
+		this.periodFrom = periodFrom;
 	}
 
-	public void setPeriodForm(Date periodForm) {
-		this.periodForm = periodForm;
+	public void setPeriodTo(Date periodTo) {
+		this.periodTo = periodTo;
 	}
 
 	public void setCreatedOn(Date createdOn) {

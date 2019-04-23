@@ -17,6 +17,7 @@ public class BatchDaoImpl extends AbstractHibernateDao<Batch> implements BatchDa
 	public Collection<Batch> search(final String name) {
 		String hql = "FROM Batch B "
 				   + "WHERE (LOWER(B.name) LIKE LOWER(:name) "
+				   + "OR LOWER(B.technology.name) LIKE LOWER(:name)) "
 				   + "AND B.isDelete = 'false'";
 		Query q = getCurrentSession().createQuery(hql);
 		q.setParameter("name", "%" + name + "%");

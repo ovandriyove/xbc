@@ -244,6 +244,14 @@
 			<version>1.0</version>
 		</dependency>
 
+		<!-- Custom Validation -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.0.10.Final</version>
+		</dependency>
+
+
 	</dependencies>
 	<build>
 		<finalName>xbc</finalName>

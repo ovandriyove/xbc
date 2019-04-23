@@ -159,11 +159,11 @@
 								<div class="col-xs-8">
 									<div class="form-group">
 										Gender&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-											<input type="radio" name="gender" value="M" id="gender" checked>
-											<label for="Male">&nbsp; M</label>
+											<input type="radio" name="gender" value="M" class="gender" checked>
+											<label for="M">&nbsp; M</label>
 											 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                       						<input type="radio" name="gender" value="F" id="genderFemale"checked>
-                        					<label for="Female">&nbsp; F</label>
+                       						<input type="radio" name="gender" value="F" class="gender" checked>
+											<label for="F">&nbsp; F</label>
 									</div>
 								</div>
 							</div>
@@ -373,12 +373,13 @@
 				$('#educationalLevelEdit').val(d.educationalLevel);
 				$('#majorsEdit').val(d.majors);
 				$('#gpaEdit').val(d.gpa);
-				$('#gender').val(d.gender);
-				$('#bootcamptTestType').val(d.bootcampTestType);
+				$('.gender').val([d.gender]);
+				$('#bootcampTestType').val(d.bootcampTestType);
 				$('#iq').val(d.iq);
 				$('#du').val(d.du);
 				$('#nestedLogic').val(d.nestedLogic);
 				$('#joinTable').val(d.joinTable);
+				$('#arithmetic').val(d.arithmetic);
 				$('#tro').val(d.tro);
 				$('#interviewer').val(d.interviewer);
 				$('#notes').val(d.notes);

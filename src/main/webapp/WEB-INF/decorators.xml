@@ -4,14 +4,10 @@
     <!-- Any urls that are excluded will never be decorated by Sitemesh -->
 	<excludes>
 		<pattern>/assets/*</pattern>
+		<pattern>/login</pattern>
 	</excludes>
 
 	<decorator name="main" page="main.jsp">
 		<pattern>/*</pattern>
 	</decorator>> 
-
-	<decorator name="login" page="login.jsp">
-		<pattern>/login</pattern>
-	</decorator>
-	
 </decorators> 

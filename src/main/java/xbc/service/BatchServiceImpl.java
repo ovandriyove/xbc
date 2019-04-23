@@ -34,12 +34,12 @@ public class BatchServiceImpl implements BatchService {
 		batch.setModifiedBy(1);
 		batch.setModifiedOn(new Date());
 		batch.setName(newBatch.getName());
-		batch.setTechnology(newBatch.getTechnology());
-		batch.setBootcampType(newBatch.getBootcampType());
-		batch.setRoom(newBatch.getRoom());
-		batch.setTrainer(newBatch.getTrainer());
+		batch.setTechnologyId(newBatch.getTechnologyId());
+		batch.setBootcampTypeId(newBatch.getBootcampTypeId());
+		batch.setRoomId(newBatch.getRoomId());
+		batch.setTrainerId(newBatch.getTrainerId());
+		batch.setPeriodFrom(newBatch.getPeriodFrom());
 		batch.setPeriodTo(newBatch.getPeriodTo());
-		batch.setPeriodForm(newBatch.getPeriodForm());
 		batch.setNotes(newBatch.getNotes());
 		Batch result = batchDao.update(batch);
 		
