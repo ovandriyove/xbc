@@ -4,7 +4,7 @@
 <title>Biodata</title>
 </head>
 <body>
-	<!-- Tampilan & input -->
+	<!-- Search dan tampilan tabel  -->
 	<section class="content">
 		<!--  Search -->
 		<div class="row">
@@ -57,7 +57,7 @@
 			</div>
 		</div>
 
-		<!-- Form Biodata -->
+		<!-- Pop up Biodata -->
 		<form id="form-biodata">
 			<div class="modal fade" id="modalBiodata">
 				<div class="modal-dialog">
@@ -90,7 +90,7 @@
 								<div class="col-xs-12">
 									<div class="form-group">
 										<input type="text" class="form-control" name="educationalLevel"
-											id="educationalLevel" placeholder="Educational Level">
+											id="educationalLevel" placeholder="Educational Level ex: SD, SMP, SMA, S1, S2, S3, or other">
 									</div>
 								</div>
 							</div>
@@ -128,7 +128,8 @@
 				</div>
 			</div>
 		</form>
-
+		
+		<!-- Pop up edit biodata -->
 		<form id="form-editBiodata">
 			<div class="modal fade" id="modalEdit">
 				<div class="modal-dialog">
@@ -153,7 +154,7 @@
 								<div class="col-xs-4">
 									<div class="form-group">
 										<input type="text" class="form-control" name="name"
-											id="nameEdit">
+											id="nameEdit" placeholder="name">
 									</div>
 								</div>
 								<div class="col-xs-8">
@@ -171,7 +172,7 @@
 								<div class="col-xs-4">
 									<div class="form-group">
 										<input type="text" class="form-control" name="lastEducation"
-											id="lastEducationEdit">
+											id="lastEducationEdit" placeholder="Last Education">
 									</div>
 								</div>
 								<div class="col-xs-8">
@@ -186,7 +187,7 @@
 								<div class="col-xs-4">
 									<div class="form-group">
 										<input type="text" class="form-control"
-											name="educationalLevel" id="educationalLevelEdit">
+											name="educationalLevel" id="educationalLevelEdit" placeholder="Educational Level">
 									</div>
 								</div>
 								<div class="col-xs-2">
@@ -214,7 +215,7 @@
 								<div class="col-xs-4">
 									<div class="form-group">
 										<input type="text" class="form-control" name="graduationYear"
-											id="graduationYearEdit">
+											id="graduationYearEdit" placeholder="Graduation Year">
 									</div>
 								</div>
 								<div class="col-xs-8">
@@ -228,7 +229,7 @@
 								<div class="col-xs-4">
 									<div class="form-group">
 										<input type="text" class="form-control" name="majors"
-											id="majorsEdit">
+											id="majorsEdit" placeholder="Majors">
 									</div>
 								</div>
 								<div class="col-xs-8">
@@ -242,7 +243,7 @@
 								<div class="col-xs-4">
 									<div class="form-group">
 										<input type="text" class="form-control" name="gpa"
-											id="gpaEdit">
+											id="gpaEdit" placeholder="GPA">
 									</div>
 								</div>
 								<div class="col-xs-8">
@@ -270,35 +271,23 @@
 				</div>
 			</div>
 		</form>
-		
-		<!-- Pop up Delete -->
-		<div class="modal modal-warning fade" id="modal-delete">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title">Delete</h4>
-				</div>
-				<div class="modal-body">
-					<div class="form-group" align="center">
-						<p>Are you sure to delete this data?</p>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default pull-left"
-						data-dismiss="modal">No</button>
-					<button type="button" class="btn btn-danger">Yes</button>
-				</div>
-			</div>
-		</div>
-
 	</section>
+	
 	<!-- Proses -->
 	<script>
 	var modeSubmit = 'insert';
 	
+	function cekHuruf(a) {
+        valid = /^[A-Za-z]{1,}$/;
+        return valid.test(a);
+     }
+    
+    function cekAngka(a) {
+        valid = /^[0-9]{1,}$/;
+        return valid.test(a);
+     }
+
+    //Fungsi Refresh Tabel
 	function refreshTabel() {
 		$.ajax({
 			type: 'get',
@@ -318,13 +307,11 @@
 						'<i class="fa fa-navicon"></i>' +
                         '</button>' +
                         '<ul class="dropdown-menu pull-left">' +
-                        '<li><a href="javascript:void(0)" value="Edit" data-toggle="modal" data-target="#modalEdit" onclick="loadEdit(\'' + element.id + '\')">Edit</a></li>' +
+                        '<li><a href="javascript:void(0)" value="Edit" onclick="loadEdit(\'' + element.id + '\')">Edit</a></li>' +
                         '<li><a href="javascript:void(0)" value="Delete" onclick="hapus(\'' + element.id + '\')">Delete</a></li>' +
                         '</ul>' +
                         '</div>'
-                    	//'<input class="btn btn-default btn-sm" type="button" value="Edit" data-toggle="modal" data-target="#modalEdit" onclick="loadEdit(\'' + element.id + '\')"> &nbsp;' +
-    	 				//'<input class="btn btn-danger btn-sm" type="button" value="Hapus" data-toggle="modal" dataId ="'+element.id+'" onclick="hapus(\'' + element.id + '\')">'
-					]).draw();
+                    ]).draw();
 				})
 				
 			},
@@ -334,42 +321,56 @@
 		});
 	}
 
-	function simpan() {	
+    //Save awal dan edit
+	function simpan() {
 		var method;
-
-		if(modeSubmit == 'insert') {
-			var data = $('#form-biodata').serializeJSON();	
+		if (modeSubmit == 'insert') {
+			var data = $('#form-biodata').serializeJSON();
 			$('#modalBiodata').modal('hide');
 			method = 'post';
 		} else {
-			var data  = $('#form-editBiodata').serializeJSON();
+			var data = $('#form-editBiodata').serializeJSON();
 			$('#modalEdit').modal('hide');
-			method ='put';
+			method = 'put';
 		}
-		$.ajax({
-			type: method,
-			url: 'biodata/',
-			data: JSON.stringify(data),
-			contentType: 'application/json',
-			success:  function(d) {
-				refreshTabel();
-				modeSubmit = 'insert';
-				$('#form-biodata').trigger("reset");
-				$('#form-biodata input[type=hidden]').val('');	
-				$('#form-editBiodata').trigger("reset");
-				$('#form-editBiodata input[type=hidden]').val('');	
-			},
-			error: function(d) {
-				console.log('Error')
-			}
-		});
+		//if (!cekHuruf($('#educationalLevel').val())) {
+			//alert("Harus Huruf");
+			if (!cekHuruf($('#educationalLevel').val().length) > 5) {
+				alert("Tidak boleh lebih dari 5");
+			//}
+		} else {
+			$.ajax({
+				type : method,
+				url : 'biodata/',
+				data : JSON.stringify(data),
+				contentType : 'application/json',
+				success : function(d) {
+					refreshTabel();
+					modeSubmit = 'insert';
+					$('#form-biodata').trigger("reset");
+					$('#form-biodata input[type=hidden]').val('');
+					$('#form-editBiodata').trigger("reset");
+					$('#form-editBiodata input[type=hidden]').val('');
+					if (method == 'post') {
+						$.notify("Data successfully saved !", "success");
+					}
+					if (method == 'put') {
+						$.notify("Data successfully update !", "success");
+					}
+				},
+				error : function(d) {
+					console.log('Error')
+				}
+			});
+		}
 	}
 
-    function loadEdit(id) {
+	//Load data untuk diedit
+	function loadEdit(id) {
 		$.ajax({
-			type: 'get',
-			url: 'biodata/' + id,
-			success: function(d) {
+			type : 'get',
+			url : 'biodata/' + id,
+			success : function(d) {
 				refreshTabel();
 				$('#idEdit').val(d.id);
 				$('#nameEdit').val(d.name);
@@ -378,7 +379,7 @@
 				$('#educationalLevelEdit').val(d.educationalLevel);
 				$('#majorsEdit').val(d.majors);
 				$('#gpaEdit').val(d.gpa);
-				$('.gender').val([d.gender]);
+				$('.gender').val([ d.gender ]);
 				$('#bootcampTestType').val(d.bootcampTestType);
 				$('#iq').val(d.iq);
 				$('#du').val(d.du);
@@ -388,24 +389,28 @@
 				$('#tro').val(d.tro);
 				$('#interviewer').val(d.interviewer);
 				$('#notes').val(d.notes);
-				modeSubmit ='update';
+				modeSubmit = 'update';
 			},
-            error: function(d) {
+			error : function(d) {
 				console.log('Error');
-            }
+			}
 		});
-    }
+		$('#modalEdit').modal('show');
+	}
 
+	//Ubah modeSubmit menjadi insert untuk save 
 	function insert() {
 		modeSubmit = 'insert';
 	}
 
+	//Fungsi Hapus
 	function hapus(id) {
 		if (confirm("Are you sure to delete this data?")) {
 			$.ajax({
 				type : 'delete',
 				url : 'biodata/' + id,
 				success : function(d) {
+					$.notify("Data successfully deleted !", "success");
 					refreshTabel();
 				},
 				error : function(d) {
@@ -414,31 +419,31 @@
 			});
 		}
 	}
-
+	
 	function loadBootcampTestType() {
-        $.ajax({
-            type: 'GET',
-            url: 'bootcampTestType/',
-            success: function(d) {
-                showBootcampTestType(d);
-            },
-            error: function(d) {
+		$.ajax({
+			type : 'GET',
+			url : 'bootcampTestType/',
+			success : function(d) {
+				showBootcampTestType(d);
+			},
+			error : function(d) {
 				console.log('Error - loadBootcampTestType');
-            }
-        });
-    }
+			}
+		});
+	}
 
 	function showBootcampTestType(d) {
 		var s = '<option value="" disabled selected> - Choose BootcampTestType -</option>';
-		$(d).each(function(index, element) {
-            s += '<option value="' + element.id 
-                + '" data-nama="' + element.name + '">' 
-                + element.name
-                + '</option>';
-		});
-        $('#bootcampTestType').html(s);
-    }
+			$(d).each(function(index, element) {
+				s += '<option value="' + element.id 
+                  + '" data-nama="' + element.name + '">'
+				  + element.name + '</option>';
+			});
+		$('#bootcampTestType').html(s);
+	}
 
+	//Document Ready
 	var tabelBiodata;
 	$(document).ready(function() {
 		tabelBiodata = $('#tabel-biodata').DataTable({
@@ -449,6 +454,7 @@
 		refreshTabel();
 		loadBootcampTestType();
 	});
+	
 	</script>
 </body>
 </html>

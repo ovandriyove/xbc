@@ -2,6 +2,8 @@ package xbc.web;
 
 import java.util.Collection;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,8 +39,8 @@ public class ClazzController {
 	}
 	
 	@RequestMapping(value="/", method=RequestMethod.POST)
-	public ResponseEntity<Clazz> save(@RequestBody Clazz clazz) {
-		clazzService.save(clazz);
+	public ResponseEntity<Clazz> save(@RequestBody Clazz clazz, HttpSession session) {
+		clazzService.save(clazz, (int) session.getAttribute("sessionId"));
 		
 		ResponseEntity<Clazz> result = new ResponseEntity<> (HttpStatus.OK);
 		return result;

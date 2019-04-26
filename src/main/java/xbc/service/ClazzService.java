@@ -10,6 +10,6 @@ public interface ClazzService {
 	public Clazz update(Clazz clazz);
 	public void delete(Clazz clazz);
 	public void deleteById(Integer id);
-	public void save(Clazz clazz);
+	public void save(Clazz clazz, Integer sessionId);
 	public Collection<Clazz> search(String name);
 }

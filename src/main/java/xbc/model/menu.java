@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,12 +19,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 @Table(name="t_menu")
 public class Menu implements Serializable {
-
+//	Id
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id", length=11, nullable=false, columnDefinition = "serial")
 	private Integer id;
-	
+
+// 	Input	
 //	@Column(name="code", length=50, nullable=false)
 	@Column(name="code", length=50)
 	private String code;
@@ -39,38 +42,43 @@ public class Menu implements Serializable {
 	@Column(name="menu_order", nullable=false)
 	private Integer menuOrder;
 	
+	@ManyToOne
+	@JoinColumn(name="menu_parent", updatable=false, insertable=false)
+	private Menu menuParentMenu;
+	
 	@Column(name="menu_parent", length=11)
 	private Integer menuParent;
 	
 	@Column(name="menu_url", length=100, nullable=false)
 	private String menuUrl;
 	
-	@Column(name="create_by", length=11, nullable=false)
-	private Integer createBy;
-	
+//	Waktu	
 	@Column(name="created_on", nullable=false)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/Jakarta")
 	private Date createdOn;
-	
-	@Column(name="modified_by", length=11)
-	private Integer modifiedBy;
 	
 	@Column(name="modified_on")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/Jakarta")
 	private Date modifiedOn;
 	
-	@Column(name="delete_by", length=11)
-	private Integer deleteBy;
-	
 	@Column(name="delete_on")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/Jakarta")
 	private Date deleteOn;
+
+//	Modify	
+	@Column(name="delete_by", length=11)
+	private Integer deleteBy;
+	
+	@Column(name="create_by", length=11, nullable=false)
+	private Integer createBy;
+	
+	@Column(name="modified_by", length=11)
+	private Integer modifiedBy;
 	
 	@Column(name="is_delete", nullable=false)
-//	@ColumnDefault(value="FALSE")
 	private boolean isDelete;
 
 	public Integer getId() {
@@ -95,6 +103,10 @@ public class Menu implements Serializable {
 
 	public Integer getMenuOrder() {
 		return menuOrder;
+	}
+
+	public Menu getMenuParentMenu() {
+		return menuParentMenu;
 	}
 
 	public Integer getMenuParent() {
@@ -157,6 +169,10 @@ public class Menu implements Serializable {
 		this.menuOrder = menuOrder;
 	}
 
+	public void setMenuParentMenu(Menu menuParentMenu) {
+		this.menuParentMenu = menuParentMenu;
+	}
+
 	public void setMenuParent(Integer menuParent) {
 		this.menuParent = menuParent;
 	}
@@ -192,5 +208,4 @@ public class Menu implements Serializable {
 	public void setDelete(boolean isDelete) {
 		this.isDelete = isDelete;
 	}
-	
 }

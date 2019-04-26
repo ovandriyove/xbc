@@ -33,7 +33,7 @@ public class Biodata implements Serializable {
 	@Column(name="last_education", length=100, nullable=false)
 	private String lastEducation;
 	
-	@Column(name="gradution_yeaar", length=5, nullable=false)
+	@Column(name="gradution_year", length=5, nullable=false)
 	private String graduationYear;
 	
 	@Column(name="educational_level", length=5, nullable=false)
@@ -84,21 +84,21 @@ public class Biodata implements Serializable {
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/Jakarta")
 	private Date createdOn;
 	
-	@Column(name="modified_by", length=11)
-	private Integer modifiedBy;
-	
 	@Column(name="modified_on")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/Jakarta")
 	private Date modifiedOn;
 	
-	@Column(name="delete_by", length=11)
-	private Integer deleteBy;
-	
 	@Column(name="delete_on")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/Jakarta")
 	private Date deleteOn;
+	
+	@Column(name="modified_by", length=11)
+	private Integer modifiedBy;
+	
+	@Column(name="delete_by", length=11)
+	private Integer deleteBy;
 	
 	@Column(name="is_delete", nullable=false)
 	private boolean isDelete;

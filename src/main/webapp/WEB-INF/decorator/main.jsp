@@ -44,6 +44,9 @@
 	<!-- AdminLTE App -->
 	<script src="${pageContext.request.contextPath}/assets/js/adminlte.min.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/jquery.serializejson.js"></script>
+	<!-- Notify -->
+	<script src="${pageContext.request.contextPath}/assets/js/notify.min.js"></script>
+	
 	
 	<!-- Plugin File -->
 	<!-- Bootstrap WYSIHTML5 -->
@@ -108,7 +111,7 @@
                                         <a href="#" class="btn btn-default btn-flat">Profile</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">Sign Out</a>
+                                        <a href="${pageContext.request.contextPath}/logout" class="btn btn-default btn-flat">Sign Out</a>
                                     </div>
                                 </li>
                             </ul>
@@ -126,7 +129,7 @@
 					<li><a href="menu"><i class="fa fa-list"></i><span>Menu</span></a></li>
 					<li><a href="biodata"><i class="fa fa-user"></i><span>Biodata</span></a></li>
 					<li><a href="batch"><i class="fa fa-book"></i><span>Batch</span></a></li>
-					<li><a href="clazz"><i class="fa a-folder"></i><span>Class</span></a></li>
+					<li><a href="clazz"><i class="fa fa-folder"></i><span>Class</span></a></li>
 				</ul>
 			</section>
 			<!-- /.sidebar -->

@@ -31,11 +31,11 @@ public class BatchServiceImpl implements BatchService {
 	}
 
 	@Override
-	public Batch update(Batch newBatch) {
+	public Batch update(Batch newBatch, Integer sessionId) {
 		Batch batch = batchDao.findOne(newBatch.getId());
 		String jsonBefore = auditLogService.objectToJsonString(batch);
 		
-		batch.setModifiedBy(1);
+		batch.setModifiedBy(sessionId);
 		batch.setModifiedOn(new Date());
 		batch.setName(newBatch.getName());
 		batch.setTechnologyId(newBatch.getTechnologyId());
@@ -63,13 +63,20 @@ public class BatchServiceImpl implements BatchService {
 	}
 
 	@Override
-	public void save(Batch batch) {
-		batch.setCreatedBy(1);
+	public Integer save(Batch batch, Integer sessionId) {
+		batch.setCreatedBy(sessionId);
 		batch.setCreatedOn(new Date());
 		batch.setDelete(false);	
-		batchDao.save(batch);
 		
-		auditLogService.logInsert(auditLogService.objectToJsonString(batch));
+		Integer countName = this.checkName(batch.getName());
+		if (countName > 0) {
+			batch.setName(batch.getName());
+			return 1;
+		} else {
+			batchDao.save(batch);
+			auditLogService.logInsert(auditLogService.objectToJsonString(batch));
+			return 2;
+		}
 	}
 
 	@Override
@@ -78,14 +85,25 @@ public class BatchServiceImpl implements BatchService {
 	}
 
 	@Override
-	public Batch softDeleteById(Integer id) {
+	public Batch softDeleteById(Integer id, Integer sessionId) {
 		Batch batch = batchDao.findOne(id);
-		batch.setDeleteBy(1);
+		batch.setDeleteBy(sessionId);
 		batch.setDeleteOn(new Date());
 		batch.setDelete(true);
 		Batch result = batchDao.update(batch);
 		
 		auditLogService.logDelete(auditLogService.objectToJsonString(batch));
 		return result;
+	}
+	
+	public Integer checkName(String name) {
+		Collection<Batch> list = batchDao.search(name);
+		Integer countName = 0;
+		if (list == null) {
+			countName = 0;
+		} else {
+			countName = list.size();
+		}
+		return countName;
 	}
 }

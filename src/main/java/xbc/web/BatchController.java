@@ -2,6 +2,8 @@ package xbc.web;
 
 import java.util.Collection;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,23 +45,30 @@ public class BatchController {
 		return result;
 	}
 	
+//	@RequestMapping(value="/", method=RequestMethod.POST)
+//	public ResponseEntity<Batch> save(@RequestBody Batch batch) {
+//		batchService.save(batch);
+//		ResponseEntity<Batch> result = new ResponseEntity<> (HttpStatus.OK);
+//		return result;
+//	}
+	
 	@RequestMapping(value="/", method=RequestMethod.POST)
-	public ResponseEntity<Batch> save(@RequestBody Batch batch) {
-		batchService.save(batch);
-		ResponseEntity<Batch> result = new ResponseEntity<> (HttpStatus.OK);
+	public ResponseEntity<Integer> save(@RequestBody Batch batch) {
+//		Integer result = batchService.save(batch);
+		ResponseEntity<Integer> result = new ResponseEntity<> (HttpStatus.OK);
 		return result;
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-	public ResponseEntity<Batch> softDeleteById(@PathVariable("id") Integer id) {
-		batchService.softDeleteById(id);
+	public ResponseEntity<Batch> softDeleteById(@PathVariable("id") Integer id, HttpSession session) {
+		batchService.softDeleteById(id, (int) session.getAttribute("sessionId"));
 		ResponseEntity<Batch> result = new ResponseEntity<>(HttpStatus.OK);
 		return result;
 	}
 	
 	@RequestMapping(value="/", method=RequestMethod.PUT)
-	public ResponseEntity<Batch> update(@RequestBody Batch batch) {
-		batchService.update(batch);
+	public ResponseEntity<Batch> update(@RequestBody Batch batch, HttpSession session) {
+		batchService.update(batch, (int) session.getAttribute("sessionId"));
 		ResponseEntity<Batch> result = new ResponseEntity<>(HttpStatus.OK);
 		return result;
 	}	

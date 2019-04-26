@@ -2,6 +2,8 @@ package xbc.web;
 
 import java.util.Collection;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,24 +46,24 @@ public class BiodataController {
 	}
 	
 	@RequestMapping(value="/", method=RequestMethod.POST)
-	public ResponseEntity<Biodata> save(@RequestBody Biodata biodata) {
+	public ResponseEntity<Biodata> save(@RequestBody Biodata biodata, HttpSession session) {
 //		biodata.setCreateBy(session.getSession('id"));
-		biodataService.save(biodata);
+		biodataService.save(biodata, (int) session.getAttribute("sessionId"));
 		
 		ResponseEntity<Biodata> result = new ResponseEntity<> (HttpStatus.OK);
 		return result;
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-	public ResponseEntity<Biodata> softDeleteById(@PathVariable("id") Integer id) {
-		biodataService.softDeleteById(id);
+	public ResponseEntity<Biodata> softDeleteById(@PathVariable("id") Integer id, HttpSession session) {
+		biodataService.softDeleteById(id, (int) session.getAttribute("sessionId"));
 		ResponseEntity<Biodata> result = new ResponseEntity<>(HttpStatus.OK);
 		return result;
 	}
 	
 	@RequestMapping(value="/", method=RequestMethod.PUT)
-	public ResponseEntity<Biodata> update(@RequestBody Biodata biodata) {
-		biodataService.update(biodata);
+	public ResponseEntity<Biodata> update(@RequestBody Biodata biodata, HttpSession session) {
+		biodataService.update(biodata, (int) session.getAttribute("sessionId"));
 		ResponseEntity<Biodata> result = new ResponseEntity<>(HttpStatus.OK);
 		return result;
 	}	

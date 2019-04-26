@@ -22,7 +22,7 @@ public class Room implements Serializable {
 	private String name;
 
 	@Column(name="is_delete")
-	private boolean isdelete;
+	private boolean isDelete;
 
 	public Integer getId() {
 		return id;
@@ -32,8 +32,8 @@ public class Room implements Serializable {
 		return name;
 	}
 
-	public boolean isIsdelete() {
-		return isdelete;
+	public boolean isDelete() {
+		return isDelete;
 	}
 
 	public void setId(Integer id) {
@@ -44,7 +44,7 @@ public class Room implements Serializable {
 		this.name = name;
 	}
 
-	public void setIsdelete(boolean isdelete) {
-		this.isdelete = isdelete;
+	public void setDelete(boolean isDelete) {
+		this.isDelete = isDelete;
 	}
 }

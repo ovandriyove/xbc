@@ -31,11 +31,11 @@ public class BiodataServiceImpl implements BiodataService {
 	}
 
 	@Override
-	public Biodata update(Biodata newBiodata) {
+	public Biodata update(Biodata newBiodata, Integer sessionId) {
 		Biodata biodata = biodataDao.findOne(newBiodata.getId());
 		String jsonBefore = auditLogService.objectToJsonString(biodata);
 		
-		biodata.setModifiedBy(1);
+		biodata.setModifiedBy(sessionId);
 		biodata.setModifiedOn(new Date());
 		biodata.setName(newBiodata.getName());
 		biodata.setLastEducation(newBiodata.getLastEducation());
@@ -71,8 +71,8 @@ public class BiodataServiceImpl implements BiodataService {
 	}
 
 	@Override
-	public void save(Biodata biodata) {
-		biodata.setCreateBy(1);
+	public void save(Biodata biodata, Integer sessionId) {
+		biodata.setCreateBy(sessionId);
 		biodata.setCreatedOn(new Date());
 		biodata.setDelete(false);
 		biodataDao.save(biodata);
@@ -86,9 +86,9 @@ public class BiodataServiceImpl implements BiodataService {
 	}
 
 	@Override
-	public Biodata softDeleteById(Integer id) {
+	public Biodata softDeleteById(Integer id, Integer sessionId) {
 		Biodata biodata = biodataDao.findOne(id);
-		biodata.setDeleteBy(1);
+		biodata.setDeleteBy(sessionId);
 		biodata.setDeleteOn(new Date());
 		biodata.setDelete(true);
 		Biodata result = biodataDao.update(biodata);

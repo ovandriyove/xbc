@@ -119,7 +119,7 @@
 						'<i class="fa fa-navicon"></i>' +
                         '</button>' +
                         '<ul class="dropdown-menu pull-left">' +
-                        '<li><a href="javascript:void(0)" value="Delete" onclick="loadHapus(\'' + element.id + '\')">Delete</a></li>' +
+                        '<li><a href="javascript:void(0)" value="Delete" onclick="hapus(\'' + element.id + '\')">Delete</a></li>' +
                         '</ul>' +
                         '</div>'
                     	//'<input class="btn btn-default btn-sm" type="button" value="Edit" data-toggle="modal" data-target="#modalEdit" onclick="loadEdit(\'' + element.id + '\')"> &nbsp;' +
@@ -148,21 +148,21 @@
 	    });
 	}   
 
-	function hapus() {
-		var id = $('#id').val();
-		$('#modal-delete').modal('hide');
-	      $.ajax({
-	        type: 'delete',
-	        url: 'clazz' + id,
-	        success: function (d) {
-	          refreshTable();
-	         
-	        },
-	        error: function (d) {
-	          console.log('Error');
-	        }
-	      });
-	  }
+    function hapus(id) {
+        if (confirm("Are you sure to delete this data?")) {
+          $.ajax({
+            type: 'delete',
+            url: 'clazz/' + id,
+            success: function (d) {
+              refreshTabel();
+              $.notify("Data has been deleted !", "success");
+            },
+            error: function (d) {
+              console.log('Error');
+            }
+          });
+        }
+     }
 	  
 	function loadBatch() {
         $.ajax({

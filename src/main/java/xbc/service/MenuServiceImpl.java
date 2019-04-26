@@ -32,11 +32,11 @@ public class MenuServiceImpl  implements MenuService {
 	
 	//Edit Menu
 	@Override
-	public Menu update(Menu newMenu) {
+	public Menu update(Menu newMenu, Integer sessionId) {
 		Menu menu = menuDao.findOne(newMenu.getId());
 		String jsonBefore = auditLogService.objectToJsonString(menu);
 		
-		menu.setModifiedBy(1);
+		menu.setModifiedBy(sessionId);
 		menu.setModifiedOn(new Date());
 		menu.setTitle(newMenu.getTitle());
 		menu.setDescription(newMenu.getDescription());
@@ -62,11 +62,10 @@ public class MenuServiceImpl  implements MenuService {
 	}
 	
 	@Override
-	public void save(Menu menu) {
-		menu.setCreateBy(1);
+	public void save(Menu menu, Integer sessionId) {
+		menu.setCreateBy(sessionId);
 		menu.setCreatedOn(new Date());
 		menu.setDelete(false);
-//		menu.setCode("1");
 		menuDao.save(menu);
 		menu.setCode(generateCode(menu.getId()));
 		menuDao.update(menu);
@@ -81,9 +80,9 @@ public class MenuServiceImpl  implements MenuService {
 	}
 	
 	@Override
-	public Menu softDeleteById(Integer id) {
+	public Menu softDeleteById(Integer id , Integer sessionId) {
 		Menu menu = menuDao.findOne(id);
-		menu.setDeleteBy(1);
+		menu.setDeleteBy(sessionId);
 		menu.setDeleteOn(new Date());
 		menu.setDelete(true);
 		Menu result = menuDao.update(menu);

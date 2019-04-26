@@ -47,8 +47,8 @@ public class ClazzServiceImpl implements ClazzService {
 	}
 
 	@Override
-	public void save(Clazz clazz) {
-		clazz.setCreatedBy(1);
+	public void save(Clazz clazz , Integer sessionId) {
+		clazz.setCreatedBy(sessionId);
 		clazz.setCreatedOn(new Date());
 		clazzDao.save(clazz);
 		

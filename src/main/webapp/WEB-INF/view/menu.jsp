@@ -20,7 +20,7 @@
 										<input type="text" id="search" class="form-control pull-left"
 											placeholder="Search by Title">
 										<div class="input-group-btn">
-											<button type="button" class="btn btn-default" onclick="refreshTabel()">
+											<button type="button" class="btn btn-default" onclick="search()">
 												<i class="fa fa-search"></i>
 											</button>
 										</div>
@@ -57,7 +57,7 @@
 			</div>
 		</div>
 
-		<!-- Form Menu -->
+		<!-- Pop up menu -->
 		<form id="form-menu">
 			<div class="modal fade" id="modalMenu">
 				<div class="modal-dialog">
@@ -118,7 +118,7 @@
 			</div>
 		</form>
 
-		<!-- Form Edit Menu -->
+		<!-- Pop up edit menu -->
 		<form id="form-editMenu">
 			<div class="modal fade" id="modalEdit">
 				<div class="modal-dialog">
@@ -193,53 +193,57 @@
 				</div>
 			</div>
 		</form>
-
-		<!-- Form Delete -->
-		<div class="modal fade" id="modalDelete">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Delete Menu</h4>
-					</div>
-					<div class="modal-body">
-						<!--<form id="form-delete">
-							<div class="row">
-								<div class="col-xs-6">
-									<div class="form-group">
-										<input type="hidden" class="form-control" name="id:number"
-											id="idHapus">
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-xs-6">
-									<div class="form-group">
-										<input type="text" class="form-control"
-											name="delete:boolean" id="deleteHapus">
-									</div>
-								</div>
-							</div> 
-						</form>-->
-						<div class="form-group" align="center">
-							<p>Are you sure to delete this data?</p>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default pull-left"
-							data-dismiss="modal">No</button>
-						<button type="button" class="btn btn-danger" onclick="hapus(dataId)">Yes</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
 	</section>
+	
 	<!-- Proses -->
 	<script>
 	var modeSubmit = 'insert';
-	
+
+	//fungsi refersh tabel
 	function refreshTabel() {
+		$.ajax({
+			type: 'get',
+			url: 'menu/',
+			success: function(d) {
+				//dropdown menuParent
+				var s = '<option value ="choose" disabled selected>- Choose Menu Parent -</option>' +
+					'<option value="">Master</option>';
+				tabelMenu.clear().draw();
+				$(d).each(function(index, element){
+				if(element.menuParent==null){
+						element.menuParentMenu={title:'Master'} //untuk menuParent Master dengan value null biar diatmpilkan
+					}
+					tabelMenu.row.add([
+						element.code,
+						element.title,
+						element.menuParentMenu.title,	
+						'<div class="input-group-btn">' +
+						'<button type="button" class="btn btn-default btn-sm pull-left" data-toggle="dropdown">' +
+						'<i class="fa fa-navicon"></i>' +
+                        '</button>' +
+                        '<ul class="dropdown-menu pull-left">' +
+                        '<li><a href="javascript:void(0)" value="Edit" onclick="loadEdit(\'' + element.id + '\')">Edit</a></li>' +
+                        '<li><a href="javascript:void(0)" value="Delete" onclick="hapus(\'' + element.id + '\')">Delete</a></li>' +
+                        '</ul>' +
+                        '</div>'					
+					//	'<input class="btn btn-default btn-sm" type="button" value="Edit" data-toggle="modal" data-target="#modalEdit" onclick="loadEdit(\'' + element.id + '\')"> &nbsp;' +
+		 			//	'<input class="btn btn-danger btn-sm" type="button" value="Hapus" data-toggle="modal" dataId ="'+element.id+'" onclick="hapus(\'' + element.id + '\')">'
+					]).draw();
+						s += '<option value="' + element.id + '" data-title="' + element.title + '">'
+						+ element.title + '</option>';
+					
+				})
+				$('#menuParent').html(s);
+				$('#menuParentEdit').html(s);
+			},
+			error: function(d) {
+				console.log('Error');
+			}
+		});
+	}
+
+	//Fungsi Search berdasarkan title
+	function search() {
 		$.ajax({
 			type: 'get',
 			url: 'menu/',
@@ -247,23 +251,27 @@
 				title: $('#search').val()
 			},
 			success: function(d) {
-				var s = '<option value ="" disabled selected>- Choose Menu Parent -</option>' +
-					'<option value="0">Master</option>';
 				tabelMenu.clear().draw();
 				$(d).each(function(index, element){
+					if(element.menuParent==null){
+						element.menuParentMenu={title:'Master'}}
 					tabelMenu.row.add([
 						element.code,
 						element.title,
-						element.menuParent,
-						'<input class="btn btn-default btn-sm" type="button" value="Edit" data-toggle="modal" data-target="#modalEdit" onclick="loadEdit(\'' + element.id + '\')"> &nbsp;' +
-		 				'<input class="btn btn-danger btn-sm" type="button" value="Hapus" data-toggle="modal" dataId ="'+element.id+'" onclick="hapus(\'' + element.id + '\')">'
+						element.menuParentMenu.title,
+						'<div class="input-group-btn">' +
+						'<button type="button" class="btn btn-default btn-sm pull-left" data-toggle="dropdown">' +
+						'<i class="fa fa-navicon"></i>' +
+                        '</button>' +
+                        '<ul class="dropdown-menu pull-left">' +
+                        '<li><a href="javascript:void(0)" value="Edit" onclick="loadEdit(\'' + element.id + '\')">Edit</a></li>' +
+                        '<li><a href="javascript:void(0)" value="Delete" onclick="hapus(\'' + element.id + '\')">Delete</a></li>' +
+                        '</ul>' +
+                        '</div>'						
+					//	'<input class="btn btn-default btn-sm" type="button" value="Edit" data-toggle="modal" data-target="#modalEdit" onclick="loadEdit(\'' + element.id + '\')"> &nbsp;' +
+		 			//	'<input class="btn btn-danger btn-sm" type="button" value="Hapus" data-toggle="modal" dataId ="'+element.id+'" onclick="hapus(\'' + element.id + '\')">'
 					]).draw();
-
-					s += '<option value="' + element.id + '" data-title="' + element.title + '">'
-					+ element.title + '</option>';
-					
 				})
-				$('#menuParent').html(s);
 			},
 			error: function(d) {
 				console.log('Error');
@@ -271,129 +279,108 @@
 		});
 	}
 
-	function simpan() {	
-		var method;
+	//Simpan awal dan edit
 
-		if(modeSubmit == 'insert') {
-			var data = $('#form-menu').serializeJSON();	
+	function simpan() {
+		var method;
+		if (modeSubmit == 'insert') {
+			var data = $('#form-menu').serializeJSON();
 			$('#modalMenu').modal('hide');
 			method = 'post';
 		} else {
-			var data  = $('#form-editMenu').serializeJSON();
+			var data = $('#form-editMenu').serializeJSON();
 			$('#modalEdit').modal('hide');
-			method ='put';
+			method = 'put';
 		}
-		$.ajax({
-			type: method,
-			url: 'menu/',
-			data: JSON.stringify(data),
-			contentType: 'application/json',
-			success:  function(d) {
-				refreshTabel();
-				modeSubmit = 'insert';
-				//$('#code, #title, #imageUrl, #description, #menuParent, #menuOrder, #menuUrl').val('');
-				$('#form-menu').trigger("reset");
-				$('#form-menu input[type=hidden]').val('');	
-				$('#form-editMenu').trigger("reset");
-				$('#form-editMenu input[type=hidden]').val('');	
-			},
-			error: function(d) {
-				console.log('Error')
-			}
-		});
+		if ($('#idEdit').val() == $('#menuParentEdit').val()) {
+			alert("Menu Parent tidak boleh sama dengan Title !");
+		} else {
+			$.ajax({
+				type : method,
+				url : 'menu/',
+				data : JSON.stringify(data),
+				contentType : 'application/json',
+				success : function(d) {
+					refreshTabel();
+					modeSubmit = 'insert';
+					$('#form-menu').trigger("reset");
+					$('#form-menu input[type=hidden]').val('');
+					$('#form-editMenu').trigger("reset");
+					$('#form-editMenu input[type=hidden]').val('');
+					if (method == 'post') {
+						$.notify("Data successfully saved !", "success");
+					}
+					if (method == 'put') {
+						$.notify("Data successfully update !", "success");
+					}
+				},
+				error : function(d) {
+					console.log('Error')
+				}
+			});
+		}
 	}
 
-    function loadEdit(id) {
+	//Load data untuk diedit
+	function loadEdit(id) {
 		$.ajax({
-			type: 'get',
-			url: 'menu/' + id,
-			success: function(d) {
-				refreshTabel();
-				var s = '';
-				$(d).each(function(index, element){
-					s += '<option value="' + element.menuParent + '" data-title="' + element.title + '">'
-					+ element.menuParent + '</option>';
-					s += '<option value="' + element.id + '" data-title="' + element.title + '">'
-					+ element.title + '</option>';
-				})
-				$('#menuParentEdit').html(s);
-				
+			type : 'get',
+			url : 'menu/' + id,
+			success : function(d) {
 				$('#idEdit').val(d.id);
 				$('#codeEdit').val(d.code);
 				$('#titleEdit').val(d.title);
 				$('#descriptionEdit').val(d.description);
 				$('#imageUrlEdit').val(d.imageUrl);
 				$('#menuOrderEdit').val(d.menuOrder);
-				$('#menuParentEdit').val(d.menuParent);
+				if (d.menuParent == null) {
+					$('#menuParentEdit').val('');
+				} else {
+					$('#menuParentEdit').val(d.menuParent);
+				}
 				$('#menuUrlEdit').val(d.menuUrl);
-				modeSubmit ='update';
+				modeSubmit = 'update';
 			},
-            error: function(d) {
+			error : function(d) {
 				console.log('Error');
-            }
+			}
 		});
-    }
+		$('#modalEdit').modal('show');
+	}
 
-//	function loadHapus(id) {
-//		$.ajax({
-//			type : 'get',
-//			url : 'menu/' + id,
-//			success : function(d) {	
-//				refreshTabel();
-//				$('#idHapus').val(d.id);
-//				$('#deleteHapus').val(true);
-//			},
-//			error : function(d) {
-//				console.log('Error');
-//			}
-//		});
-//	}
-
-//	function hapus2nd(id) {
-//		$('#modalDelete').modal('hide');
-//		var data  = $('#form-delete').serializeJSON();
-//		$.ajax({
-//			type: 'delete',
-//			url: 'menu/' + id,
-//			data: JSON.stringify(data),
-//			contentType: 'application/json',
-//			success: function(d) {
-//				refreshTabel();
-//			},
-//			error: function(d) {
-//				console.log('Error')
-//			}
-//		});
-//	}
-
+	//Ubah modeSubmit inser untuk save data
 	function insert() {
 		modeSubmit = 'insert';
 	}
 
-    function hapus(id) {
-        if (confirm("Are you sure to delete this data?")) {
-          $.ajax({
-            type: 'delete',
-            url: 'menu/' + id,
-            success: function (d) {
-              refreshTabel();
-            },
-            error: function (d) {
-              console.log('Error');
-            }
-          });
-        }
-     }
-	
-    var tabelMenu;
-    $(document).ready(function () {
-      tabelMenu = $('#tabel-menu').DataTable({
-        'searching': false,
-        'lengthChange': false,
-        'lengthMenu': [10]
-      });
-      refreshTabel();
-    });
+	//hapus data
+	function hapus(id) {
+		if (confirm("Are you sure to delete this data?")) {
+			$.ajax({
+				type : 'delete',
+				url : 'menu/' + id,
+				success : function(d) {
+					refreshTabel();
+					$.notify("Data successfully deleted !", "success");
+				
+				},
+				error : function(d) {
+					console.log('Error');
+				}
+			});
+		}
+	}
+
+	//Document ready
+	var tabelMenu;
+	$(document).ready(function() {
+		tabelMenu = $('#tabel-menu').DataTable({
+			'searching' : false,
+			'lengthChange' : false,
+			'lengthMenu' : [ 10 ]
+		});
+		refreshTabel();
+	});
 </script>
 </body>
 </html>
