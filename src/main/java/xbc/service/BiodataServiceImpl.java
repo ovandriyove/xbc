@@ -56,7 +56,7 @@ public class BiodataServiceImpl implements BiodataService {
 		Biodata result = biodataDao.update(biodata);
 		
 		String jsonAfter = auditLogService.objectToJsonString(biodata);
-		auditLogService.logUpdate(jsonBefore, jsonAfter);
+		auditLogService.logUpdate(jsonBefore, jsonAfter, sessionId);
 		return result;
 	}
 
@@ -77,7 +77,7 @@ public class BiodataServiceImpl implements BiodataService {
 		biodata.setDelete(false);
 		biodataDao.save(biodata);
 		
-		auditLogService.logInsert(auditLogService.objectToJsonString(biodata));
+		auditLogService.logInsert(auditLogService.objectToJsonString(biodata), sessionId);
 	}
 
 	@Override
@@ -88,12 +88,15 @@ public class BiodataServiceImpl implements BiodataService {
 	@Override
 	public Biodata softDeleteById(Integer id, Integer sessionId) {
 		Biodata biodata = biodataDao.findOne(id);
+		String jsonBefore = auditLogService.objectToJsonString(biodata);
+		
 		biodata.setDeleteBy(sessionId);
 		biodata.setDeleteOn(new Date());
 		biodata.setDelete(true);
 		Biodata result = biodataDao.update(biodata);
 		
-		auditLogService.logDelete(auditLogService.objectToJsonString(biodata));
+		String jsonAfter = auditLogService.objectToJsonString(biodata);
+		auditLogService.logUpdate(jsonBefore, jsonAfter, sessionId);
 		return result;
 	}
 }

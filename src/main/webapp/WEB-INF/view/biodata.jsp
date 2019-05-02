@@ -326,11 +326,11 @@
 		var method;
 		if (modeSubmit == 'insert') {
 			var data = $('#form-biodata').serializeJSON();
-			$('#modalBiodata').modal('hide');
+			
 			method = 'post';
 		} else {
 			var data = $('#form-editBiodata').serializeJSON();
-			$('#modalEdit').modal('hide');
+			
 			method = 'put';
 		}
 		//if (!cekHuruf($('#educationalLevel').val())) {
@@ -338,7 +338,19 @@
 			if (!cekHuruf($('#educationalLevel').val().length) > 5) {
 				alert("Tidak boleh lebih dari 5");
 			//}
-		} else {
+		} else if (data.name.trim().length == 0) {
+	          $.notify("Input name tidak boleh kosong", "warn");
+	    } else if (data.lastEducation.trim().length == 0) {
+	          $.notify("Input Last Education tidak boleh kosong", "warn");
+	    } else if (data.educationalLevel.trim().length == 0) {
+	          $.notify("Input Educational Level tidak boleh kosong", "warn");
+	    } else if (data.graduationYear.trim().length == 0) {
+	          $.notify("Input Graduation Year tidak boleh kosong", "warn");
+	    } else if (data.majors.trim().length == 0) {
+	          $.notify("Input Majors tidak boleh kosong", "warn");
+	    } else if (data.gpa.trim().length == 0) {
+	          $.notify("Input GPA tidak boleh kosong", "warn");
+	    }else {
 			$.ajax({
 				type : method,
 				url : 'biodata/',
@@ -353,9 +365,11 @@
 					$('#form-editBiodata input[type=hidden]').val('');
 					if (method == 'post') {
 						$.notify("Data successfully saved !", "success");
+						$('#modalBiodata').modal('hide');
 					}
 					if (method == 'put') {
 						$.notify("Data successfully update !", "success");
+						$('#modalEdit').modal('hide');
 					}
 				},
 				error : function(d) {

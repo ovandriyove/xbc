@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import xbc.model.Biodata;
 import xbc.model.Clazz;
 import xbc.service.ClazzService;
 
@@ -47,8 +48,8 @@ public class ClazzController {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-	public ResponseEntity<Clazz> deleteById(@PathVariable("id") Integer id) {
-		clazzService.deleteById(id);
+	public ResponseEntity<Clazz> deleteById(@PathVariable("id") Integer id, HttpSession session) {
+		clazzService.deleteById(id, (Integer) session.getAttribute("sessionId"));
 		ResponseEntity<Clazz> result = new ResponseEntity<>(HttpStatus.OK);
 		return result;
 	}
@@ -58,5 +59,12 @@ public class ClazzController {
 		clazzService.update(clazz);
 		ResponseEntity<Clazz> result = new ResponseEntity<>(HttpStatus.OK);
 		return result;
-	}	
+	}
+	
+	@RequestMapping(value="/biodata-tersedia/{id}", method=RequestMethod.GET)
+	public ResponseEntity<Collection<Biodata>> biodataTersedia(@PathVariable("id") Integer id) {
+		Collection<Biodata> list = clazzService.biodataTersedia(id);
+		ResponseEntity<Collection<Biodata>> result = new ResponseEntity<>(list, HttpStatus.OK);
+		return result;
+	}
 }

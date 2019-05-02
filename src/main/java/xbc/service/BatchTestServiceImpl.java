@@ -64,7 +64,7 @@ public class BatchTestServiceImpl implements BatchTestService {
 			batchTest.setCreatedOn(new Date());
 			batchTestDao.save(batchTest);
 			
-			auditLogService.logInsert(auditLogService.objectToJsonString(batchTest));
+			auditLogService.logInsert(auditLogService.objectToJsonString(batchTest), sessionId);
 		}		
 	}
 }

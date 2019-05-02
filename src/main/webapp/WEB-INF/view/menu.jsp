@@ -93,7 +93,7 @@
 								</div>
 								<div class="col-xs-6">
 									<div class="form-group">
-										<input type="text" class="form-control" name="menuOrder:number"
+										<input type="text" class="form-control" name="menuOrder"
 											id="menuOrder" placeholder="Menu Order">
 									</div>
 									<div class="form-group">
@@ -160,7 +160,7 @@
 								</div>
 								<div class="col-xs-6">
 									<div class="form-group">
-										<input type="text" class="form-control" name="menuOrder:number"
+										<input type="text" class="form-control" name="menuOrder"
 											id="menuOrderEdit">
 									</div>
 								</div>
@@ -285,15 +285,19 @@
 		var method;
 		if (modeSubmit == 'insert') {
 			var data = $('#form-menu').serializeJSON();
-			$('#modalMenu').modal('hide');
 			method = 'post';
 		} else {
 			var data = $('#form-editMenu').serializeJSON();
-			$('#modalEdit').modal('hide');
 			method = 'put';
 		}
-		if ($('#idEdit').val() == $('#menuParentEdit').val()) {
-			alert("Menu Parent tidak boleh sama dengan Title !");
+		if (data.title.trim().length == 0) {
+	          $.notify("Input Title tidak boleh kosong", "warn");
+	    } else if (data.menuOrder.trim().length == 0) {
+	          $.notify("Input Menu Order tidak boleh kosong", "warn");
+	    } else if (data.menuUrl.trim().length == 0) {
+	          $.notify("Input Menu Url tidak boleh kosong", "warn");
+	    } else if ($('#idEdit').val() == $('#menuParentEdit').val()) {
+			$.notify("Menu Parent tidak boleh sama dengan Title", "warn");
 		} else {
 			$.ajax({
 				type : method,
@@ -309,9 +313,11 @@
 					$('#form-editMenu input[type=hidden]').val('');
 					if (method == 'post') {
 						$.notify("Data successfully saved !", "success");
+						$('#modalMenu').modal('hide');
 					}
 					if (method == 'put') {
 						$.notify("Data successfully update !", "success");
+						$('#modalEdit').modal('hide');
 					}
 				},
 				error : function(d) {

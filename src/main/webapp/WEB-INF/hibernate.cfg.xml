@@ -17,6 +17,7 @@
 		<mapping class="xbc.model.Clazz" />
 		<mapping class="xbc.model.Room" />
 		<mapping class="xbc.model.Technology" />
+		<mapping class="xbc.model.TechnologyTrainer" />
 		<mapping class="xbc.model.Trainer" />
 		<mapping class="xbc.model.BootcampType" />
 		<mapping class="xbc.model.BootcampTestType" />

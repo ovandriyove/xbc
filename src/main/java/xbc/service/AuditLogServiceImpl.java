@@ -66,32 +66,32 @@ public class AuditLogServiceImpl implements AuditLogService {
 	}
 
 	@Override
-	public void logInsert(String jsonInsert) {
+	public void logInsert(String jsonInsert, Integer sessionId) {
 		AuditLog auditLog = new AuditLog();
 		auditLog.setJsonInsert(jsonInsert);
 		auditLog.setType("INSERT");
-		auditLog.setCreatedBy(1);
+		auditLog.setCreatedBy(sessionId);
 		auditLog.setCreatedOn(new Date());
 		auditLogDao.save(auditLog);
 	}
 
 	@Override
-	public void logUpdate(String jsonBefore, String jsonAfter) {
+	public void logUpdate(String jsonBefore, String jsonAfter, Integer sessionId) {
 		AuditLog auditLog = new AuditLog();
 		auditLog.setJsonBefore(jsonBefore);
 		auditLog.setJsonAfter(jsonAfter);
 		auditLog.setType("MODIFY");
-		auditLog.setCreatedBy(1);
+		auditLog.setCreatedBy(sessionId);
 		auditLog.setCreatedOn(new Date());
 		auditLogDao.save(auditLog);
 	}
 
 	@Override
-	public void logDelete(String jsonDelete) {
+	public void logDelete(String jsonDelete, Integer sessionId) {
 		AuditLog auditLog = new AuditLog();
 		auditLog.setJsonDelete(jsonDelete);
 		auditLog.setType("DELETE");
-		auditLog.setCreatedBy(1);
+		auditLog.setCreatedBy(sessionId);
 		auditLog.setCreatedOn(new Date());
 		auditLogDao.save(auditLog);
 	}

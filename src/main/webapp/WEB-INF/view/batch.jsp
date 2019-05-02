@@ -98,7 +98,7 @@
 								<div class="col-xs-6">
 									<div class="form-group">
 										<select class="custom-select d-block w-100 form-control"
-											name="technologyId" id="technologyId">
+											name="technologyId" id="technologyId" onchange = 'loadTechnologyTrainer()'>
 										</select>
 									</div>
 								</div>
@@ -106,6 +106,7 @@
 									<div class="form-group">
 										<select class="custom-select d-block w-100 form-control"
 											name="trainerId" id="trainerId">
+											<option value="" disabled selected> - Choose Trainer -</option>
 										</select>
 									</div>
 								</div>
@@ -177,7 +178,7 @@
 								<div class="col-xs-12">
 									<div class="form-group">
 										<input type="hidden" class="form-control" name="batchId"
-											id="idParticipant">
+											id="batchIdAdd">
 									</div>
 								</div>
 							</div>
@@ -215,7 +216,7 @@
 						</div>
 						<div class="row">
 								<div class="col-xs-12">
-									<input type="hidden" class="form-control" name="batchId" id="batchId"
+									<input type="hidden" class="form-control" name="batchId" id="batchIdTest"
 										placeholder="BatchId">
 								</div>
 							</div>
@@ -273,25 +274,11 @@
 	}
 
 	function loadTest(id) {
-/* 		$.ajax({
-			type: 'GET',
-			url: 'batchTest/',
-			success: function(d) {
-				$('#cek1').prop('checked', true);
-				$('#cek2').val(d.);
-				$('#cek3').val(d.);
-				console.log('Success - loadTest');
-			},
-			error: function(d) {
-				console.log('Error - loadTest');
-			}
-		}); */
-		
 		$.ajax({
 			type: 'GET',
 			url: 'test/',
 			success: function(d) {
-				$('#batchId').val(id);
+				$('#batchIdTest').val(id);
 				showTest(d);
 			},
 			error: function(d) {
@@ -344,8 +331,10 @@
 			$('#modalBatch').modal('hide');
 			method = 'put';
 		}
-		if ($('#periodFrom').val() >= $('#periodTo').val()) {
-			alert("Period From Harus Lebih Kecil dari Period To")
+		if (data.name.trim().length == 0) {
+	          $.notify("Input name tidak boleh kosong", "warn");
+	    } else if ($('#periodFrom').val() >= $('#periodTo').val()) {
+			$.notify("Period From Harus Lebih Kecil dari Period To", "warn");
 		} else {
 			$.ajax({
 				type : method,
@@ -353,24 +342,20 @@
 				data : JSON.stringify(data),
 				contentType : 'application/json',
 				success : function(d) {
-					refreshTabel();
-					if (d == 1) {
-						alert("Nama sudah ada!");
-					} else if (d == 2) {
-						modeSubmit = 'insert';	
-						$('#form-batch').trigger("reset");
+					refreshTabel();	
+					modeSubmit = 'insert';	
+					$('#form-batch').trigger("reset");
 					$('#form-batch input[type=hidden]').val('');
-						$('#modalBatch').modal('hide');
-					}
+					$('#modalBatch').modal('hide');
 					if (method == 'post') {
 						$.notify("Data successfully saved !", "success");
-				}
+					}
 					if (method == 'put') {
 						$.notify("Data successfully update !", "success");
-					}
+					}	
 				},
 				error : function(d) {
-					console.log('Error')
+					$.notify(d.responseText, "warn");
 				}
 			});
 		}
@@ -378,19 +363,20 @@
 
 	//	Add Participant
 	function loadParticipant(id) {
-		$('#form-addParticipant').trigger("reset");
-		$('#form-addParticipant input[type=hidden]').val('');
 		$.ajax({
 			type : 'get',
-			url : 'batch/' + id,
+			url : 'clazz/biodata-tersedia/' + id,
 			success : function(d) {
 				refreshTabel();
-				$('#idParticipant').val(d.id);
+				$('#batchIdAdd').val(id);
+				showBiodata(d);
 			},
 			error : function(d) {
 				console.log('Error');
 			}
 		});
+		$('#form-addParticipant').trigger("reset");
+		$('#form-addParticipant input[type=hidden]').val('');
 		$('#modalAddParticipant').modal('show');
 	}
 
@@ -467,6 +453,21 @@
 		});
 		$('#roomId').html(s);
 	}
+
+	function loadTechnologyTrainer() {
+		var id=$('#technologyId').val();
+		$.ajax({
+			type : 'GET',
+			url : 'technology-trainer/' + id,
+			success : function(d) {
+				showTrainer(d);
+			},
+			error : function(d) {
+				console.log('Error - loadTechnologyTrainer');
+			}
+		});
+	} 
+	
 		
 	function loadTechnology() {
 		$.ajax({
@@ -491,7 +492,7 @@
 		$('#technologyId').html(s);
 	}
 
-	function loadTrainer() {
+/*  	function loadTrainer() {
 		$.ajax({
 			type : 'GET',
 			url : 'trainer/',
@@ -502,14 +503,14 @@
 				console.log('Error - loadTrainer');
 			}
 		});
-	}
-
+	} */
+	 
 	function showTrainer(d) {
 		var s = '<option value="" disabled selected> - Choose Trainer -</option>';
 		$(d).each(function(index, element) {
-			s += '<option value="' + element.id 
-              + '" data-nama="' + element.name + '">'
-			  + element.name + '</option>';
+			s += '<option value="' + element.trainerId 
+              + '" data-nama="' + element.trainer.name + '">'
+			  + element.trainer.name + '</option>';
 		});
 		$('#trainerId').html(s);
 	}
@@ -537,10 +538,10 @@
 		$('#bootcampTypeId').html(s);
 	}
 
-	function loadBiodata() {
+/* 	function loadBiodata() {
 		$.ajax({
 			type : 'GET',
-			url : 'biodata/findAll/',
+			url : 'bootcampType/findAll/',
 			success : function(d) {
 				showBiodata(d);
 			},
@@ -548,7 +549,7 @@
 				console.log('Error - loadBiodata');
 			}
 		});
-	}
+	} */
 
 	function showBiodata(d) {
 		var s = '<option value="" disabled selected> - Add Participant -</option>';
@@ -578,9 +579,9 @@
 		refreshTabel();
 			loadRoom();
 			loadTechnology();
-			loadTrainer();
+			//loadTrainer();
 			loadBootcampType();
-			loadBiodata();
+			//loadBiodata();
 		});
 	</script>
 </body>

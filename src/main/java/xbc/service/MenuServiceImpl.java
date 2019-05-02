@@ -48,6 +48,7 @@ public class MenuServiceImpl  implements MenuService {
 		Menu result = menuDao.update(menu);
 		
 		String jsonAfter = auditLogService.objectToJsonString(menu);
+		auditLogService.logUpdate(jsonBefore, jsonAfter, sessionId);
 		return result;
 	}
 	
@@ -70,7 +71,7 @@ public class MenuServiceImpl  implements MenuService {
 		menu.setCode(generateCode(menu.getId()));
 		menuDao.update(menu);
 		
-		auditLogService.logInsert(auditLogService.objectToJsonString(menu));
+		auditLogService.logInsert(auditLogService.objectToJsonString(menu), sessionId);
 		
 	}
 	
@@ -82,11 +83,15 @@ public class MenuServiceImpl  implements MenuService {
 	@Override
 	public Menu softDeleteById(Integer id , Integer sessionId) {
 		Menu menu = menuDao.findOne(id);
+		String jsonBefore = auditLogService.objectToJsonString(menu);
+		
 		menu.setDeleteBy(sessionId);
 		menu.setDeleteOn(new Date());
 		menu.setDelete(true);
 		Menu result = menuDao.update(menu);
-		auditLogService.logDelete(auditLogService.objectToJsonString(menu));
+		
+		String jsonAfter = auditLogService.objectToJsonString(menu);
+		auditLogService.logUpdate(jsonBefore, jsonAfter, sessionId);
 		return result;
 	}
 	
