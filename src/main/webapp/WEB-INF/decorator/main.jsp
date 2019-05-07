@@ -125,11 +125,15 @@
 			<!-- sidebar: style can be found in sidebar.less -->
 			<section class="sidebar">
 				<ul class="sidebar-menu">
-					<li><a href="index.jsp"><i class="fa fa-home"></i><span>Home</span></a></li>
-					<li><a href="menu"><i class="fa fa-list"></i><span>Menu</span></a></li>
-					<li><a href="biodata"><i class="fa fa-user"></i><span>Biodata</span></a></li>
-					<li><a href="batch"><i class="fa fa-book"></i><span>Batch</span></a></li>
+					<li><a href="home.jsp"><i class="fa fa-home"></i><span>Home</span></a></li>
+					<li class="header">Master</li>
+					<li><a href="menu"><i class="fa fa-tag"></i><span>Menu</span></a></li>
+					<li><a href="biodata"><i class="fa fa-tag"></i><span>Biodata</span></a></li>
+					<li><a href="trainer"><i class="fa fa-tag"></i><span>Trainer</span></a></li>
+					<li class="header">Transaction</li>
+					<li><a href="batch"><i class="fa fa-folder"></i><span>Batch</span></a></li>
 					<li><a href="clazz"><i class="fa fa-folder"></i><span>Class</span></a></li>
+					<li><a href="technology"><i class="fa fa-folder"></i><span>Technology</span></a></li>
 				</ul>
 			</section>
 			<!-- /.sidebar -->

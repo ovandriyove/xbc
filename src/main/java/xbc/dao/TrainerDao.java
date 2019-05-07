@@ -11,4 +11,5 @@ public interface TrainerDao {
 	public void delete(Trainer trainer);
 	public void deleteById(Integer trainerId);
 	public void save(Trainer trainer);
+	public Collection<Trainer> search(String name);
 }

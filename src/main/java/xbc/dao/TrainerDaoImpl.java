@@ -21,4 +21,14 @@ public class TrainerDaoImpl extends AbstractHibernateDao<Trainer> implements Tra
 		Collection<Trainer> result = q.list();
 		return result;
 	}
+	
+	public Collection<Trainer> search(final String name) {
+		String hql = "FROM Trainer T "
+				   + "WHERE LOWER(T.name) LIKE LOWER(:name) "
+				   + "AND T.isDelete = 'false'";
+		Query q = getCurrentSession().createQuery(hql);
+		q.setParameter("name", "%" + name + "%");
+		Collection<Trainer> result = q.list();
+		return result;
+	}
 }

@@ -106,7 +106,7 @@
 									<div class="form-group">
 										<select class="custom-select d-block w-100 form-control"
 											name="trainerId" id="trainerId">
-											<option value="" disabled selected> - Choose Trainer -</option>
+											<option value="" disabled selected> - Choose Trainer (pilih Technology dahulu) -</option>
 										</select>
 									</div>
 								</div>

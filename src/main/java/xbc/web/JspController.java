@@ -20,6 +20,11 @@ public class JspController {
 		return "biodata";
 	}
 	
+	@RequestMapping("trainer")
+	public String trainer() {
+		return "trainer";
+	}
+	
 	@RequestMapping("batch")
 	public String batch() {
 		return "batch";

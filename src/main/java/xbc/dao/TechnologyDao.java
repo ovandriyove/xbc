@@ -11,4 +11,5 @@ public interface TechnologyDao {
 	public void delete(Technology technology);
 	public void deleteById(Integer technologyId);
 	public void save(Technology technology);
+	public Collection<Technology> search(String technology);
 }
