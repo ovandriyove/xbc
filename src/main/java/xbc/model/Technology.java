@@ -94,6 +94,10 @@ public class Technology implements Serializable {
 		return deleteBy;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
 	public Integer getCreateBy() {
 		return createBy;
 	}
@@ -134,6 +138,10 @@ public class Technology implements Serializable {
 		this.deleteBy = deleteBy;
 	}
 
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	public void setCreateBy(Integer createBy) {
 		this.createBy = createBy;
 	}
@@ -145,5 +153,4 @@ public class Technology implements Serializable {
 	public void setDelete(boolean isDelete) {
 		this.isDelete = isDelete;
 	}
-
 }

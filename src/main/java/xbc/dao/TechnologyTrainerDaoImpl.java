@@ -24,5 +24,11 @@ public class TechnologyTrainerDaoImpl extends AbstractHibernateDao<TechnologyTra
 		return result;
 	}
 
+	@Override
+	public Collection<TechnologyTrainer> trainerTersedia(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }

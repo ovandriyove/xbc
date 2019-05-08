@@ -10,6 +10,11 @@ public class JspController {
 		return "login";
 	}
 	
+	@RequestMapping("home")
+	public String home() {
+		return "home";
+	}
+	
 	@RequestMapping("menu")
 	public String menu() {
 		return "menu";
@@ -33,5 +38,10 @@ public class JspController {
 	@RequestMapping("clazz")
 	public String clazz() {
 		return "clazz";
+	}
+	
+	@RequestMapping("technology")
+	public String technology() {
+		return "technology";
 	}
 }

@@ -87,6 +87,14 @@
 							<div class="row">
 								<div class="col-xs-12">
 									<div class="form-group">
+										<input type="hidden" class="form-control" name="id" id="id"
+											placeholder="ID">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="form-group">
 										<input type="text" class="form-control" name="name" id="name"
 											placeholder="Name">
 									</div>
@@ -107,7 +115,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="row">
+						<!-- <div class="row">
 								<div class="col-xs-10"></div>
 								<div class="col-xs-2">
 									<div class="form-group">
@@ -131,7 +139,7 @@
 										</table>
 									</div>
 								</div>
-							</div>
+							</div> -->
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default pull-left"
@@ -168,34 +176,7 @@
                         '</button>' +
                         '<ul class="dropdown-menu pull-left">' +
                         '<li><a href="javascript:void(0)" value="Edit" onclick="loadEdit(\'' + element.id + '\')">Edit</a></li>' +
-                        '<li><a href="javascript:void(0)" value="Delete" onclick="hapus(\'' + element.id + '\')">Delete</a></li>' +
-                        '</ul>' +
-                        '</div>'
-                    ]).draw();
-				})
-				
-			},
-			error: function(d) {
-				console.log('Error');
-			}
-		});
-	}
-
-	function refreshTrainer() {
-		$.ajax({
-			type: 'get',
-			url: 'technology-trainer/',
-			success: function(d) {
-				tabelAddTrainer.clear().draw();
-				$(d).each(function(index, element){
-					tabelAddTrainer.row.add([
-						element.name,
-						'<div class="input-group-btn">' +
-						'<button type="button" class="btn btn-default btn-sm pull-left" data-toggle="dropdown">' +
-						'<i class="fa fa-navicon"></i>' +
-                        '</button>' +
-                        '<ul class="dropdown-menu pull-left">' +
-                        '<li><a href="javascript:void(0)" value="Edit" onclick="loadEdit(\'' + element.id + '\')">Edit</a></li>' +
+                        '<li><a href="javascript:void(0)" value="Delete" onclick="addTrainer(\'' + element.id + '\')">Add Trainer</a></li>' +
                         '<li><a href="javascript:void(0)" value="Delete" onclick="hapus(\'' + element.id + '\')">Delete</a></li>' +
                         '</ul>' +
                         '</div>'
@@ -214,11 +195,9 @@
 		var method;
 		if (modeSubmit == 'insert') {
 			var data = $('#form-technology').serializeJSON();
-			
 			method = 'post';
 		} else {
-			var data = $('#form-technology').serializeJSON();
-			
+			var data = $('#form-technology').serializeJSON();		
 			method = 'put';
 		}
 		if (data.name.trim().length == 0) {
@@ -249,6 +228,25 @@
 		}
 	}
 
+//	Add Trainer
+/* 	function loadTrainer(id) {
+		$.ajax({
+			type : 'get',
+			url : 'technology-trainer/trainer-tersedia/' + id,
+			success : function(d) {
+				refreshTabel();
+				$('#batchIdAdd').val(id);
+				showBiodata(d);
+			},
+			error : function(d) {
+				console.log('Error');
+			}
+		});
+		$('#form-addTrainer').trigger("reset");
+		$('#form-addTrainer input[type=hidden]').val('');
+		$('#modalAddTrainer').modal('show');
+	} */
+
 	//Load data untuk diedit
 	function loadEdit(id) {
 		$.ajax({
@@ -278,11 +276,7 @@
 		if (confirm("Are you sure to delete this data?")) {
 			$.ajax({
 				type : 'delete',
-				if(){
-					url : 'technology/' + id,
-				} else {
-					url : 'technology-trainer/' + id,
-				}
+				url : 'technology/' + id,
 				success : function(d) {
 					$.notify("Data successfully deleted !", "success");
 					refreshTabel();
@@ -305,14 +299,14 @@
 		refreshTabel();
 	});
 
-	var tabelAddTrainer;
+/* 	var tabelAddTrainer;
 	$(document).ready(function(){
 		tabelAddTrainer = $('#tabel-add-trainer').DataTable({
 			'lengthChange' : false,
 			'length' : [ 5 ]
 		});
 		refreshTrainer();	
-	});
+	}); */
 	
 	</script>
 </body>

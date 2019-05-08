@@ -125,7 +125,7 @@
 			<!-- sidebar: style can be found in sidebar.less -->
 			<section class="sidebar">
 				<ul class="sidebar-menu">
-					<li><a href="home.jsp"><i class="fa fa-home"></i><span>Home</span></a></li>
+					<li><a href="home"><i class="fa fa-home"></i><span>Home</span></a></li>
 					<li class="header">Master</li>
 					<li><a href="menu"><i class="fa fa-tag"></i><span>Menu</span></a></li>
 					<li><a href="biodata"><i class="fa fa-tag"></i><span>Biodata</span></a></li>

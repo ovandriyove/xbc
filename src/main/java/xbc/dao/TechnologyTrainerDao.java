@@ -6,4 +6,5 @@ import xbc.model.TechnologyTrainer;
 
 public interface TechnologyTrainerDao {
 	public Collection<TechnologyTrainer> findAll(Integer id);
+	public Collection<TechnologyTrainer> trainerTersedia(Integer id);
 }
