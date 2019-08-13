@@ -26,8 +26,12 @@ public class TechnologyTrainerDaoImpl extends AbstractHibernateDao<TechnologyTra
 
 	@Override
 	public Collection<TechnologyTrainer> trainerTersedia(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		String hql = "FROM TechnologyTrainer TT "
+				   + "WHERE TT.technologyId = :idSekarang";
+		Query q = getCurrentSession().createQuery(hql);
+		q.setParameter("idSekarang", id);
+		Collection<TechnologyTrainer> result = q.list();
+		return result;
 	}
 
 	

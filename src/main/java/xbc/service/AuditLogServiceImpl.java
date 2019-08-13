@@ -96,4 +96,18 @@ public class AuditLogServiceImpl implements AuditLogService {
 		auditLogDao.save(auditLog);
 	}
 
+//	auditLog dengan data yang tidak diperlukan dikick
+//	@Override
+//	public String objectToJsonString(Object object) {
+//		String jsonString = null;
+//		try {
+//			ObjectMapper objectMapper = new ObjectMapper();
+//			objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
+//			objectMapper.setAnnotationIntrospector(new IgnoranceIntrospector());
+//			jsonString = objectMapper.writeValueAsString(object);
+//		} catch (JsonProcessingException e) {
+//			e.printStackTrace();
+//		}
+//		return jsonString;
+//	}		
 }

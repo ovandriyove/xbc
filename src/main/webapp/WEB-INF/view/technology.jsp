@@ -119,16 +119,14 @@
 								<div class="col-xs-10"></div>
 								<div class="col-xs-2">
 									<div class="form-group">
-										<button type="button" class="btn btn-primary">+
-											Trainer</button>
+										<button type="button" class="btn btn-primary">+ Trainer</button>
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="box">
 									<div class="box-body">
-										<table id="tabel-add-trainer"
-											class="table table-bordered table-striped">
+										<table id="tabel-add-trainer" class="table table-bordered table-striped">
 											<thead>
 												<tr>
 												 <th>Name</th>
@@ -189,6 +187,39 @@
 			}
 		});
 	}
+
+/* 	function refreshTabel() {
+		$.ajax({
+			type: 'get',
+			url: 'technology/',
+			data: {
+				name: $('#search').val()
+			},
+			success: function(d) {
+				tabelTechnology.clear().draw();
+				$(d).each(function(index, element){
+					tabelTechnology.row.add([
+						element.name,
+						element.user.username,
+						'<div class="input-group-btn">' +
+						'<button type="button" class="btn btn-default btn-sm pull-left" data-toggle="dropdown">' +
+						'<i class="fa fa-navicon"></i>' +
+                        '</button>' +
+                        '<ul class="dropdown-menu pull-left">' +
+                        '<li><a href="javascript:void(0)" value="Edit" onclick="loadEdit(\'' + element.id + '\')">Edit</a></li>' +
+                        '<li><a href="javascript:void(0)" value="Delete" onclick="addTrainer(\'' + element.id + '\')">Add Trainer</a></li>' +
+                        '<li><a href="javascript:void(0)" value="Delete" onclick="hapus(\'' + element.id + '\')">Delete</a></li>' +
+                        '</ul>' +
+                        '</div>'
+                    ]).draw();
+				})
+				
+			},
+			error: function(d) {
+				console.log('Error');
+			}
+		});
+	} */
 
     //Save awal dan edit
 	function simpan() {

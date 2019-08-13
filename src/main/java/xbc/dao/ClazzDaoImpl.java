@@ -37,7 +37,7 @@ public class ClazzDaoImpl extends AbstractHibernateDao<Clazz> implements ClazzDa
 				    + "WHERE bio.isDelete = false AND bio.id NOT IN ( "
 				    + "SELECT cl.biodataId "
 				    + "FROM Clazz cl "
-				    + "WHERE :periodToSekarang > cl.batch.periodFrom AND :periodFromSekarang < cl.batch.periodTo"; 
+				    + "WHERE :periodToSekarang > cl.batch.periodFrom AND :periodFromSekarang < cl.batch.periodTo)"; 
 		Query q2 = getCurrentSession().createQuery(hql2);
 		q2.setParameter("periodFromSekarang", batch.getPeriodFrom());
 		q2.setParameter("periodToSekarang", batch.getPeriodTo());
